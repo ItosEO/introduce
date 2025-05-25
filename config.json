@@ -63,12 +63,8 @@
       ],
       "stats": [
         {
-          "number": "98%",
-          "label": "温控精度"
-        },
-        {
-          "number": "25°C",
-          "label": "降温效果"
+          "number": "30%+",
+          "label": "性能提升"
         }
       ],
       "visualType": "stats"
