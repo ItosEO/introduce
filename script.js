@@ -122,8 +122,9 @@ function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
     const sections = document.querySelectorAll('.page-section');
     const navbar = document.querySelector('.navbar');
+    const main = document.querySelector('main');
     
-    // 平滑滚动
+    // 平滑滑动到指定页面
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -131,17 +132,23 @@ function initNavigation() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                targetSection.scrollIntoView({
+                const targetIndex = Array.from(sections).indexOf(targetSection);
+                const scrollTop = targetIndex * window.innerHeight;
+                
+                main.scrollTo({
+                    top: scrollTop,
                     behavior: 'smooth'
                 });
             }
         });
     });
     
-    // 滚动时导航栏样式变化
+    // 滚动时导航栏样式变化和导航高亮
     function updateNavbar() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollTop = main.scrollTop;
+        const currentSectionIndex = Math.round(scrollTop / window.innerHeight);
         
+        // 导航栏背景变化
         if (scrollTop > 100) {
             navbar.style.background = 'rgba(255, 255, 255, 0.95)';
             navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
@@ -151,23 +158,15 @@ function initNavigation() {
         }
         
         // 导航高亮
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (scrollTop >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
+        navLinks.forEach((link, index) => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + current) {
+            if (index === currentSectionIndex) {
                 link.classList.add('active');
             }
         });
     }
     
-    window.addEventListener('scroll', throttle(updateNavbar, 16));
+    main.addEventListener('scroll', throttle(updateNavbar, 16));
     
     // 移动端菜单切换
     const navToggle = document.querySelector('.nav-toggle');
@@ -179,24 +178,73 @@ function initNavigation() {
             this.classList.toggle('active');
         });
     }
+    
+    // 添加触摸滑动支持
+    let startY = 0;
+    let startTime = 0;
+    let isScrolling = false;
+    
+    main.addEventListener('touchstart', function(e) {
+        startY = e.touches[0].pageY;
+        startTime = Date.now();
+        isScrolling = false;
+    }, { passive: true });
+    
+    main.addEventListener('touchmove', function(e) {
+        isScrolling = true;
+    }, { passive: true });
+    
+    main.addEventListener('touchend', function(e) {
+        if (!isScrolling) return;
+        
+        const endY = e.changedTouches[0].pageY;
+        const endTime = Date.now();
+        const deltaY = startY - endY;
+        const deltaTime = endTime - startTime;
+        
+        // 检测快速滑动手势
+        if (Math.abs(deltaY) > 50 && deltaTime < 300) {
+            const currentScrollTop = main.scrollTop;
+            const currentSectionIndex = Math.round(currentScrollTop / window.innerHeight);
+            let targetIndex = currentSectionIndex;
+            
+            if (deltaY > 0 && currentSectionIndex < sections.length - 1) {
+                // 向上滑动，切换到下一页
+                targetIndex = currentSectionIndex + 1;
+            } else if (deltaY < 0 && currentSectionIndex > 0) {
+                // 向下滑动，切换到上一页
+                targetIndex = currentSectionIndex - 1;
+            }
+            
+            if (targetIndex !== currentSectionIndex) {
+                const scrollTop = targetIndex * window.innerHeight;
+                main.scrollTo({
+                    top: scrollTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, { passive: true });
 }
 
 // 返回顶部按钮
 function initBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
+    const main = document.querySelector('main');
     
     function toggleBackToTop() {
-        if (window.pageYOffset > 300) {
+        const scrollTop = main.scrollTop;
+        if (scrollTop > window.innerHeight * 0.3) {
             backToTopBtn.classList.add('visible');
         } else {
             backToTopBtn.classList.remove('visible');
         }
     }
     
-    window.addEventListener('scroll', throttle(toggleBackToTop, 16));
+    main.addEventListener('scroll', throttle(toggleBackToTop, 16));
     
     backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
+        main.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
@@ -206,16 +254,17 @@ function initBackToTop() {
 // 滚动进度条
 function initScrollProgress() {
     const progressBar = document.querySelector('.progress-bar');
+    const main = document.querySelector('main');
     
     function updateProgress() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const documentHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / documentHeight) * 100;
+        const scrollTop = main.scrollTop;
+        const maxScroll = main.scrollHeight - main.clientHeight;
+        const scrollPercent = (scrollTop / maxScroll) * 100;
         
         progressBar.style.width = scrollPercent + '%';
     }
     
-    window.addEventListener('scroll', throttle(updateProgress, 16));
+    main.addEventListener('scroll', throttle(updateProgress, 16));
 }
 
 // 性能优化：节流函数

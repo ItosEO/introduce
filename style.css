@@ -15,6 +15,7 @@ body {
     color: #1a1a1a;
     background-color: #ffffff;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 /* 加载动画 */
@@ -193,11 +194,20 @@ body {
 /* 页面区域 */
 .page-section {
     min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    scroll-snap-align: start;
+}
+
+/* 主要内容区域添加滚动捕捉 */
+main {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    height: 100vh;
 }
 
 /* 首页英雄区域 */
@@ -874,6 +884,55 @@ body {
 .contact-info {
     font-size: 1rem;
     opacity: 0.7;
+}
+
+.contact-info .copyright {
+    margin-bottom: 15px;
+}
+
+.filing-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.filing-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filing-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.filing-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.filing-separator {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.875rem;
+}
+
+.police-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.8;
 }
 
 /* 返回顶部按钮 */

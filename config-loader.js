@@ -316,9 +316,27 @@ class PageRenderer {
         }
 
         // 渲染版权信息
-        const copyrightElement = document.querySelector('.contact-info p');
+        const copyrightElement = document.querySelector('.contact-info .copyright');
         if (copyrightElement && contact.copyright) {
             copyrightElement.innerHTML = contact.copyright;
+        }
+
+        // 渲染备案信息
+        const filingElement = document.querySelector('.contact-info .filing-info');
+        if (filingElement && contact.filing) {
+            const { icp, police } = contact.filing;
+            filingElement.innerHTML = `
+                <div class="filing-links">
+                    <a href="${icp.url}" target="_blank" rel="noopener noreferrer" class="filing-link icp-link">
+                        ${icp.number}
+                    </a>
+                    <span class="filing-separator">|</span>
+                    <a href="${police.url}" target="_blank" rel="noopener noreferrer" class="filing-link police-link">
+                        <img src="https://beian.mps.gov.cn/img/logo01.dd7ff50e.png" alt="公安备案图标" class="police-icon">
+                        ${police.number}
+                    </a>
+                </div>
+            `;
         }
     }
 
