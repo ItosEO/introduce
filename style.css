@@ -53,7 +53,7 @@ body {
     height: 100%;
     background: white;
     border-radius: 2px;
-    animation: loadingProgress 2s ease-in-out;
+    animation: loadingProgress 1.4s ease-in-out;
 }
 
 @keyframes pulse {
@@ -783,6 +783,9 @@ body {
     color: white;
     text-align: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .contact-background {
@@ -813,6 +816,8 @@ body {
     max-width: 800px;
     position: relative;
     z-index: 2;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .section-title {

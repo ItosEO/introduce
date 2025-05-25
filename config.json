@@ -1,9 +1,9 @@
 {
   "site": {
-    "title": "ItosEO - 移动系统优化专家",
+    "title": "Itostar 软件集合",
     "logo": {
       "icon": "⚡",
-      "text": "ItosEO"
+      "text": "ItosEO & 小星星亮晶晶"
     },
     "description": "专业的系统优化解决方案，让您的设备发挥最佳性能"
   },
@@ -38,7 +38,7 @@
   "products": [
     {
       "id": "vivo-thermal",
-      "badge": "温控技术",
+      "badge": "付费",
       "title": "vivo温控引擎",
       "subtitle": "智能温控管理，性能与体验的完美平衡",
       "description": "通过调整系统温控参数，优化设备性能与温度管理，提升用户体验。告别过热降频，享受持续稳定的高性能表现。",
@@ -47,8 +47,8 @@
       "features": [
         {
           "icon": "🎯",
-          "title": "精准温控",
-          "description": "智能监测温度变化"
+          "title": "精准调参",
+          "description": "优化游戏&日用体验"
         },
         {
           "icon": "⚡",
@@ -63,7 +63,7 @@
       ],
       "stats": [
         {
-          "number": "30%+",
+          "number": "40%+",
           "label": "性能提升"
         }
       ],
@@ -71,7 +71,7 @@
     },
     {
       "id": "system-pro",
-      "badge": "专业工具",
+      "badge": "付费",
       "title": "系统优化Pro",
       "subtitle": "专业级优化工具，释放设备全部潜能",
       "description": "提供高级系统优化功能，提升设备运行效率，适合对系统性能有更高要求的用户。深度优化，专业配置，让您的设备达到最佳状态。",
@@ -90,16 +90,16 @@
           "description": "专业参数精细调节"
         },
         {
-          "icon": "📈",
-          "title": "性能监控",
-          "description": "实时数据分析展示"
+            "icon": "🔧",
+          "title": "独家功能",
+          "description": "多种功能提升使用体验"
         }
       ],
-      "visualType": "chart"
+      "visualType": "advanced"
     },
     {
       "id": "system-app",
-      "badge": "简单易用",
+      "badge": "免费",
       "title": "系统优化APP",
       "subtitle": "一键优化，简单易用的性能提升方案",
       "description": "一键式系统优化工具，简洁界面设计，适合小白用户，提升设备流畅度。无需复杂操作，轻松享受优化带来的流畅体验。",
@@ -122,15 +122,11 @@
           "description": "零基础轻松上手"
         }
       ],
-      "link": {
-        "text": "在vivo社区了解更多",
-        "url": "https://bbs.vivo.com.cn/newbbs/thread/34985117"
-      },
       "visualType": "ui"
     },
     {
       "id": "x-plan",
-      "badge": "高级定制",
+      "badge": "免费",
       "title": "X计划",
       "subtitle": "深度定制优化，满足极客的个性化需求",
       "description": "专注于系统深度优化，提供多项高级功能，满足高级用户的个性化需求。极致定制，为追求完美体验的用户而生。",
@@ -166,11 +162,11 @@
     "description": "专注于移动设备系统优化，致力于为用户提供最佳的设备性能体验。",
     "stats": [
       {
-        "number": "1M+",
+        "number": "4W+",
         "label": "用户选择"
       },
       {
-        "number": "50+",
+        "number": "300+",
         "label": "设备适配"
       },
       {
@@ -178,7 +174,7 @@
         "label": "满意度"
       }
     ],
-    "copyright": "&copy; 2024 ItosEO. 保留所有权利。"
+    "copyright": "&copy; 2025 ItosEO. 保留所有权利。"
   },
   "animations": {
     "particles": {

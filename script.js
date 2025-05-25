@@ -1,5 +1,8 @@
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
+    // 屏蔽滚动操作
+    document.body.style.overflow = 'hidden';
+    
     // 移除加载屏幕
     setTimeout(() => {
         const loadingScreen = document.querySelector('.loading-screen');
@@ -7,9 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingScreen.style.opacity = '0';
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
+                // 恢复滚动功能
+                document.body.style.overflow = '';
             }, 500);
         }
-    }, 2000);
+    }, 1500); // 改为1秒
 });
 
 // 粒子系统
