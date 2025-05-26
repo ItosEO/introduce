@@ -161,6 +161,9 @@ class PageRenderer {
     }
 
     createProductText(product, aos) {
+        // 根据badge内容确定样式类
+        const badgeClass = product.badge === '免费' ? 'free' : 'paid';
+        
         const featuresHtml = product.features.map(feature => `
             <div class="feature-item">
                 <div class="feature-icon">
@@ -186,7 +189,7 @@ class PageRenderer {
 
         return `
             <div class="product-text" data-aos="${aos}">
-                <div class="product-badge">${product.badge}</div>
+                <div class="product-badge ${badgeClass}">${product.badge}</div>
                 <h2 class="product-title">${product.title}</h2>
                 <p class="product-subtitle">${product.subtitle}</p>
                 <p class="product-description">${product.description}</p>

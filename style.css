@@ -201,13 +201,40 @@ body {
     position: relative;
     overflow: hidden;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* 滚动时的视觉反馈 */
+.page-section.scrolling-past {
+    opacity: 0.7;
+    transform: scale(0.95);
+}
+
+.page-section.scrolling-active {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* 主要内容区域添加滚动捕捉 */
 main {
     scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
     overflow-y: auto;
     height: 100vh;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    scroll-padding-top: 0px;
+    overscroll-behavior: contain;
+    scroll-snap-stop: always;
+    /* 启用硬件加速 */
+    will-change: scroll-position;
+    transform: translateZ(0);
+}
+
+/* 隐藏滚动条但保持功能 */
+main::-webkit-scrollbar {
+    display: none;
 }
 
 /* 首页英雄区域 */
@@ -363,6 +390,12 @@ main {
     text-align: center;
     opacity: 0.8;
     animation: bounce 2s infinite;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-indicator.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
 }
 
 .mouse {
@@ -497,14 +530,42 @@ main {
 .product-badge {
     display: inline-block;
     padding: 6px 16px;
-    background: linear-gradient(135deg, #007aff, #5856d6);
-    color: white;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 免费产品徽章 - 绿色系 */
+.product-badge.free {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* 付费产品徽章 - 金色系 */
+.product-badge.paid {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+/* 徽章悬停效果 */
+.product-badge:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.product-badge.free:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.product-badge.paid:hover {
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
 }
 
 .product-title {
