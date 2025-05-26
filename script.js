@@ -190,6 +190,9 @@ function initNavigation() {
     // 使用更频繁的更新频率来提高响应性
     main.addEventListener('scroll', throttle(updateNavbar, 10));
     
+    // 初始化导航状态 - 设置首页为默认选中状态
+    updateNavbar();
+    
     // 移动端菜单切换
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
