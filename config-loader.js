@@ -217,6 +217,9 @@ class PageRenderer {
             case 'advanced':
                 visualContent = this.createAdvancedVisual(product);
                 break;
+            case 'professional':
+                visualContent = this.createProfessionalVisual(product);
+                break;
             default:
                 visualContent = this.createDefaultVisual(product);
         }
@@ -278,6 +281,16 @@ class PageRenderer {
                 <div class="feature-dot active"></div>
                 <div class="feature-dot active"></div>
                 <div class="feature-line"></div>
+            </div>
+        `;
+    }
+
+    createProfessionalVisual(product) {
+        return `
+            <div class="professional-display">
+                <div class="pro-badge">
+                    <span class="pro-text">PRO</span>
+                </div>
             </div>
         `;
     }
