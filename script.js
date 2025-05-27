@@ -1,5 +1,26 @@
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
+    // 检测移动端设备
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // 为移动端设备添加特殊类名
+    if (isMobile || isTouch) {
+        document.body.classList.add('mobile-device');
+    }
+    
+    // 移动端性能优化
+    if (isMobile) {
+        // 减少动画和特效
+        document.body.classList.add('reduced-motion');
+        
+        // 禁用粒子效果以提高性能
+        const particlesCanvas = document.getElementById('particles-canvas');
+        if (particlesCanvas) {
+            particlesCanvas.style.display = 'none';
+        }
+    }
+    
     // 屏蔽滚动操作
     document.body.style.overflow = 'hidden';
     
@@ -14,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = '';
             }, 500);
         }
-    }, 1500); // 改为1秒
+    }, 1500);
 });
 
 // 粒子系统
@@ -197,10 +218,36 @@ function initNavigation() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    if (navToggle) {
-        navToggle.addEventListener('click', function() {
+    if (navToggle && navMenu) {
+        // 汉堡菜单点击切换
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
             navMenu.classList.toggle('active');
             this.classList.toggle('active');
+        });
+        
+        // 点击菜单项时关闭菜单
+        navMenu.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+        
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+        
+        // ESC键关闭菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
         });
     }
     

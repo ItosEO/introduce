@@ -181,6 +181,8 @@ body {
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
+    padding: 8px;
+    z-index: 1002;
 }
 
 .nav-toggle span {
@@ -189,6 +191,19 @@ body {
     background: #1a1a1a;
     border-radius: 2px;
     transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* 页面区域 */
@@ -1182,42 +1197,198 @@ main::-webkit-scrollbar {
     .hero-title {
         font-size: 4rem;
     }
+    
+    .product-card {
+        width: 320px;
+        height: 380px;
+    }
+    
+    .nav-container {
+        height: 60px;
+        padding: 0 30px;
+    }
+    
+    .hero-content {
+        padding: 0 30px;
+    }
 }
 
 @media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        /* 防止iOS缩放 */
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    
     .nav-menu {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 20px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        gap: 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        /* 防止菜单在滚动时抖动 */
+        position: fixed;
+        top: 60px;
+        z-index: 1000;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+        animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .nav-menu a {
+        padding: 15px 30px;
+        border-radius: 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-menu a:last-child {
+        border-bottom: none;
     }
     
     .nav-toggle {
         display: flex;
     }
     
+    .navbar {
+        position: fixed;
+        z-index: 1001;
+    }
+    
+    .nav-container {
+        height: 60px;
+        padding: 0 20px;
+    }
+    
+    .nav-logo {
+        font-size: 20px;
+    }
+    
     .hero-title {
-        font-size: 3rem;
+        font-size: 2.8rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
     }
     
     .hero-buttons {
         flex-direction: column;
         gap: 15px;
+        width: 100%;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
+        padding: 16px 24px;
+        font-size: 16px;
+    }
+    
+    .product-section {
+        padding: 60px 0;
+        min-height: auto;
+        height: auto;
     }
     
     .product-content {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
+        align-items: flex-start;
     }
     
     .product-content.reverse {
         direction: ltr;
     }
     
+    .product-text {
+        max-width: 100%;
+        order: 1;
+    }
+    
+    .product-visual {
+        order: 2;
+        height: auto;
+        margin-top: 20px;
+    }
+    
     .product-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 15px;
     }
     
     .product-subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .product-description {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .product-features {
+        gap: 16px;
+    }
+    
+    .feature-item {
+        padding: 16px;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .feature-content h4 {
+        font-size: 1rem;
+    }
+    
+    .feature-content p {
+        font-size: 0.85rem;
+    }
+    
+    .product-card {
+        width: 100%;
+        max-width: 320px;
+        height: 350px;
+        padding: 30px 20px;
+    }
+    
+    .product-icon-large {
+        font-size: 5rem;
+        margin-bottom: 20px;
     }
     
     .container {
@@ -1229,36 +1400,272 @@ main::-webkit-scrollbar {
         gap: 20px;
     }
     
+    .stat-card {
+        padding: 25px 20px;
+    }
+    
+    .stat-card .stat-number {
+        font-size: 2rem;
+    }
+    
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+    
+    .contact-description {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+    
+    .filing-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .filing-links {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    /* 移动端触摸优化 */
+    .cta-button,
+    .link-button,
+    .nav-menu a {
+        min-height: 44px; /* Apple建议的最小触摸目标 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* 触摸反馈优化 */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* 触摸时的视觉反馈 */
+    .cta-button:active,
+    .link-button:active,
+    .nav-menu a:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* 滚动优化 */
+    main {
+        scroll-snap-type: none; /* 移动端禁用滚动捕捉 */
+        -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+        /* 防止橡皮筋效果干扰 */
+        overscroll-behavior: contain;
+    }
+    
+    .page-section {
+        scroll-snap-align: none;
+        /* 防止移动端布局偏移 */
+        contain: layout style paint;
+    }
+    
+    /* 禁用长按选择 */
+    .product-card,
+    .feature-item,
+    .nav-toggle {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
     }
 }
 
 @media (max-width: 480px) {
+    .nav-container {
+        padding: 0 15px;
+    }
+    
+    .nav-logo {
+        font-size: 18px;
+    }
+    
+    .hero-content {
+        padding: 0 15px;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-badge {
+        padding: 6px 16px;
+    }
+    
+    .badge-text {
+        font-size: 12px;
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+    }
+    
+    .product-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .product-description {
+        font-size: 0.9rem;
+    }
+    
+    .product-badge {
+        padding: 4px 12px;
+        font-size: 10px;
+    }
+    
+    .product-icon-large {
+        font-size: 4rem;
+    }
+    
+    .product-card {
+        width: 100%;
+        max-width: 280px;
+        height: 300px;
+        padding: 25px 15px;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .contact-description {
+        font-size: 1rem;
+    }
+    
+    .stat-card .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .stat-card .stat-label {
+        font-size: 0.9rem;
+    }
+    
+    /* 超小屏幕优化 */
+    .hero-buttons {
+        gap: 12px;
+    }
+    
+    .cta-button {
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+    
+    .feature-item {
+        padding: 12px;
+    }
+    
+    .feature-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
     .hero-title {
         font-size: 2.5rem;
+    }
+    
+    .product-section {
+        padding: 40px 0;
     }
     
     .product-title {
         font-size: 2rem;
     }
     
-    .product-icon-large {
-        font-size: 6rem;
+    .contact-section {
+        padding: 40px 0;
+    }
+}
+
+/* 高分辨率屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .nav-logo,
+    .hero-title,
+    .product-title {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
-    .product-card {
-        width: 280px;
-        height: 320px;
-        padding: 30px;
+    /* 高DPI屏幕下的边框优化 */
+    .nav-menu a,
+    .product-card,
+    .feature-item {
+        border-width: 0.5px;
     }
-    
-    .nav-container {
-        padding: 0 20px;
+}
+
+/* PWA和移动端特殊优化 */
+@media (display-mode: standalone) {
+    .navbar {
+        padding-top: env(safe-area-inset-top);
     }
     
     .hero-content {
-        padding: 0 20px;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* 移动端横屏优化 */
+@media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .hero-buttons {
+        gap: 10px;
+    }
+    
+    .cta-button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .product-section {
+        padding: 30px 0;
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+    }
+    
+    .navbar {
+        height: 50px;
+    }
+    
+    .nav-container {
+        height: 50px;
+        padding: 0 15px;
+    }
+    
+    .nav-menu {
+        top: 50px;
     }
 }
 
@@ -1278,4 +1685,52 @@ main::-webkit-scrollbar {
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, #0056d3, #4c3d9e);
+}
+
+/* 移动端性能优化 */
+.mobile-device .gradient-orb {
+    animation: none; /* 禁用动画以提高性能 */
+}
+
+.mobile-device .hero-badge {
+    animation: none;
+}
+
+.reduced-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+/* 移动端专用样式 */
+.mobile-device {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.mobile-device .page-section {
+    /* 优化移动端渲染性能 */
+    will-change: auto;
+    contain: layout style paint;
+}
+
+/* 减少移动端重绘 */
+.mobile-device .product-card:hover,
+.mobile-device .feature-item:hover {
+    transform: none;
+}
+
+.mobile-device .cta-button:hover,
+.mobile-device .link-button:hover {
+    transform: none;
+}
+
+/* 移动端点击反馈 */
+.mobile-device .cta-button:active,
+.mobile-device .link-button:active,
+.mobile-device .product-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
 }
