@@ -211,14 +211,14 @@ class PageRenderer {
             case 'chart':
                 visualContent = this.createChartVisual(product);
                 break;
-            case 'opt':
-                visualContent = this.createOptVisual(product);
+            case 'ui':
+                visualContent = this.createUIVisual(product);
                 break;
-            case 'tech':
-                visualContent = this.createTechVisual(product);
+            case 'advanced':
+                visualContent = this.createAdvancedVisual(product);
                 break;
-            case 'pro':
-                visualContent = this.createProVisual(product);
+            case 'professional':
+                visualContent = this.createProfessionalVisual(product);
                 break;
             default:
                 visualContent = this.createDefaultVisual(product);
@@ -261,7 +261,7 @@ class PageRenderer {
         `;
     }
 
-    createOptVisual(product) {
+    createUIVisual(product) {
         return `
             <div class="simple-ui-preview">
                 <div class="ui-button active">一键优化</div>
@@ -273,7 +273,7 @@ class PageRenderer {
         `;
     }
 
-    createTechVisual(product) {
+    createAdvancedVisual(product) {
         return `
             <div class="advanced-features">
                 <div class="feature-dot active"></div>
@@ -285,7 +285,7 @@ class PageRenderer {
         `;
     }
 
-    createProVisual(product) {
+    createProfessionalVisual(product) {
         return `
             <div class="professional-display">
                 <div class="pro-badge">
