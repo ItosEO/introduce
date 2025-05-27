@@ -3,10 +3,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    max-width: 100%;
 }
 
 html {
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -15,7 +18,9 @@ body {
     color: #1a1a1a;
     background-color: #ffffff;
     overflow-x: hidden;
-    overflow-y: hidden;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* 加载动画 */
@@ -111,11 +116,13 @@ body {
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .nav-logo {
@@ -209,15 +216,15 @@ body {
 /* 页面区域 */
 .page-section {
     min-height: 100vh;
-    height: 100vh;
+    width: 100%;
+    max-width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    padding: 2rem 0;
+    box-sizing: border-box;
 }
 
 /* 滚动时的视觉反馈 */
@@ -231,20 +238,10 @@ body {
     transform: scale(1);
 }
 
-/* 主要内容区域添加滚动捕捉 */
+/* 主要内容区域 */
 main {
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    overflow-y: auto;
-    height: 100vh;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
-    scroll-padding-top: 0px;
-    overscroll-behavior: contain;
-    scroll-snap-stop: always;
-    /* 启用硬件加速 */
-    will-change: scroll-position;
-    transform: translateZ(0);
+    width: 100%;
+    min-height: 100vh;
 }
 
 /* 隐藏滚动条但保持功能 */
@@ -306,9 +303,13 @@ main::-webkit-scrollbar {
 
 .hero-content {
     max-width: 800px;
-    padding: 0 40px;
+    width: 100%;
+    padding: 0 2rem;
     position: relative;
     z-index: 2;
+    text-align: center;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .hero-badge {
@@ -455,8 +456,9 @@ main::-webkit-scrollbar {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 2rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 /* 产品区域 */
@@ -523,11 +525,14 @@ main::-webkit-scrollbar {
 .product-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 100px;
+    gap: 4rem;
     align-items: center;
-    min-height: 60vh;
+    width: 100%;
+    max-width: 100%;
     position: relative;
     z-index: 2;
+    padding: 2rem 0;
+    box-sizing: border-box;
 }
 
 .product-content.reverse {
@@ -1013,10 +1018,13 @@ main::-webkit-scrollbar {
 
 .contact-content {
     max-width: 800px;
+    width: 100%;
     position: relative;
     z-index: 2;
     margin: 0 auto;
     text-align: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
 }
 
 .section-title {
@@ -1673,5 +1681,101 @@ main::-webkit-scrollbar {
     .mobile-device .feature-item {
         will-change: transform;
         transform: translateZ(0);
+    }
+}
+
+/* 移动端自适应屏幕填充 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .page-section {
+        padding: 2rem 0;
+        min-height: auto;
+    }
+    
+    .hero-content, 
+    .product-content, 
+    .contact-content {
+        width: 100%;
+        max-width: 100vw;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+    
+    .product-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .product-section {
+        padding: 2rem 0;
+    }
+    
+    .nav-container {
+        padding: 0 1rem;
+        height: 60px;
+    }
+    
+    /* 确保首页区域适配移动端 */
+    #home {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 0 2rem;
+    }
+    
+    /* 联系页面适配 */
+    .contact-section {
+        min-height: auto;
+        padding: 3rem 0;
+    }
+    
+    /* 移动端固定元素优化 */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .progress-indicator {
+        height: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    
+    .hero-content, 
+    .product-content, 
+    .contact-content {
+        padding: 0.5rem;
+    }
+    
+    .nav-container {
+        padding: 0 0.5rem;
+        height: 55px;
+    }
+    
+    .product-content {
+        gap: 1.5rem;
+    }
+    
+    #home {
+        padding: 3rem 0 1rem;
+    }
+    
+    /* 超小屏幕固定元素优化 */
+    .back-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
     }
 }
