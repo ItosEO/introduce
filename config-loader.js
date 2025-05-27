@@ -117,7 +117,7 @@ class PageRenderer {
     }
 
     renderProducts() {
-        const products = this.getProducts();
+        const products = this.configLoader.getProducts();
         const container = document.querySelector('main') || document.body;
 
         products.forEach((product, index) => {
@@ -135,78 +135,17 @@ class PageRenderer {
         const textAos = product.layout === 'reverse' ? 'fade-left' : 'fade-right';
         const visualAos = product.layout === 'reverse' ? 'fade-right' : 'fade-left';
 
-        // 检测是否为移动设备
-        const isMobile = window.innerWidth <= 768;
-        
-        if (isMobile) {
-            // 移动端布局：features 和 visual 并排显示
-            section.innerHTML = `
-                ${this.createSectionBackground()}
-                <div class="container">
-                    <div class="product-content">
-                        ${this.createMobileProductLayout(product, textAos, visualAos)}
-                    </div>
+        section.innerHTML = `
+            ${this.createSectionBackground()}
+            <div class="container">
+                <div class="${contentClass}">
+                    ${this.createProductText(product, textAos)}
+                    ${this.createProductVisual(product, visualAos)}
                 </div>
-            `;
-        } else {
-            // 桌面端保持原有布局
-            section.innerHTML = `
-                ${this.createSectionBackground()}
-                <div class="container">
-                    <div class="${contentClass}">
-                        ${this.createProductText(product, textAos)}
-                        ${this.createProductVisual(product, visualAos)}
-                    </div>
-                </div>
-            `;
-        }
-
-        return section;
-    }
-
-    createMobileProductLayout(product, textAos, visualAos) {
-        // 移动端布局：只显示标题、描述和features，不显示卡片
-        const badgeClass = product.badge === '免费' ? 'free' : 'paid';
-        
-        const featuresHtml = product.features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <span>${feature.icon}</span>
-                </div>
-                <div class="feature-content">
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            </div>
-        `).join('');
-
-        const linkHtml = product.link ? `
-            <div class="product-link">
-                <a href="${product.link.url}" target="_blank" class="link-button">
-                    <span>${product.link.text}</span>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-            </div>
-        ` : '';
-
-        return `
-            <div class="product-text" data-aos="${textAos}">
-                <div class="product-badge ${badgeClass}">${product.badge}</div>
-                <h2 class="product-title">${product.title}</h2>
-                <p class="product-subtitle">${product.subtitle}</p>
-                <p class="product-description">${product.description}</p>
-                ${linkHtml}
-            </div>
-            <div class="product-features" data-aos="fade-up">
-                ${featuresHtml}
             </div>
         `;
-    }
 
-    createMobileDefaultVisual(product) {
-        return '';
+        return section;
     }
 
     createSectionBackground() {

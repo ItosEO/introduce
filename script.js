@@ -1,7 +1,7 @@
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     // 检测移动端设备
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
     // 为移动端设备添加特殊类名
@@ -19,38 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (particlesCanvas) {
             particlesCanvas.style.display = 'none';
         }
-        
-        // 移动端禁用一些动画效果
-        const gradientOrbs = document.querySelectorAll('.gradient-orb');
-        gradientOrbs.forEach(orb => {
-            orb.style.display = 'none';
-        });
     }
-    
-    // 响应式布局检测
-    const handleResize = () => {
-        const currentWidth = window.innerWidth;
-        if (currentWidth <= 768) {
-            document.body.classList.add('mobile-device');
-        } else {
-            document.body.classList.remove('mobile-device');
-        }
-        
-        // 重新初始化产品布局
-        if (window.pageRenderer) {
-            setTimeout(() => {
-                // 先清除现有的产品sections
-                const existingProducts = document.querySelectorAll('.product-section');
-                existingProducts.forEach(section => section.remove());
-                
-                // 重新渲染产品
-                window.pageRenderer.renderProducts();
-            }, 100);
-        }
-    };
-    
-    // 添加窗口大小变化监听
-    window.addEventListener('resize', debounce(handleResize, 250));
     
     // 屏蔽滚动操作
     document.body.style.overflow = 'hidden';
@@ -582,46 +551,17 @@ function throttle(func, wait) {
     };
 }
 
-// 工具函数
+// 防抖函数
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
         const later = () => {
             clearTimeout(timeout);
-            func(...args);
+            func.apply(this, args);
         };
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-}
-
-// 移动端触摸增强
-function initMobileTouchEnhancements() {
-    const isMobile = document.body.classList.contains('mobile-device');
-    if (!isMobile) return;
-    
-    // 为feature-item添加触摸反馈
-    const featureItems = document.querySelectorAll('.feature-item');
-    featureItems.forEach(item => {
-        item.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.98)';
-        });
-        
-        item.addEventListener('touchend', function() {
-            this.style.transform = '';
-        });
-        
-        item.addEventListener('touchcancel', function() {
-            this.style.transform = '';
-        });
-    });
-    
-    // 优化滚动性能
-    const main = document.querySelector('main');
-    if (main) {
-        main.style.webkitOverflowScrolling = 'touch';
-        main.style.overscrollBehavior = 'contain';
-    }
 }
 
 // 页面可见性变化时的处理
