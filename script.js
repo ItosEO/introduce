@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // 屏蔽滚动操作
-    document.body.style.overflow = 'hidden';
-    
     // 移除加载屏幕
     setTimeout(() => {
         const loadingScreen = document.querySelector('.loading-screen');
@@ -145,11 +142,6 @@ function initNavigation() {
     const navbar = document.querySelector('.navbar');
     const main = document.querySelector('main');
     
-    // 滚动捕获优化
-    let isScrolling = false;
-    let scrollTimeout;
-    let currentSectionIndex = 0;
-    
     // 平滑滑动到指定页面
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -158,37 +150,16 @@ function initNavigation() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const targetIndex = Array.from(sections).indexOf(targetSection);
-                scrollToSection(targetIndex);
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
         });
     });
-    
-    // 优化的滚动到指定区域函数
-    function scrollToSection(index) {
-        if (index < 0 || index >= sections.length) return;
-        
-        currentSectionIndex = index;
-        const scrollTop = index * window.innerHeight;
-        
-        // 使用更平滑的滚动
-        main.style.scrollBehavior = 'smooth';
-        main.scrollTo({
-            top: scrollTop,
-            behavior: 'smooth'
-        });
-    }
-    
+
     // 滚动时导航栏样式变化和导航高亮
     function updateNavbar() {
-        const scrollTop = main.scrollTop;
-        const sectionIndex = Math.round(scrollTop / window.innerHeight);
-        
-        // 防抖处理
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            currentSectionIndex = sectionIndex;
-        }, 100);
+        const scrollTop = main.scrollTop || window.pageYOffset;
         
         // 导航栏背景变化
         if (scrollTop > 100) {
@@ -200,18 +171,27 @@ function initNavigation() {
         }
         
         // 导航高亮
+        let activeIndex = 0;
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2) {
+                activeIndex = index;
+            }
+        });
+        
         navLinks.forEach((link, index) => {
             link.classList.remove('active');
-            if (index === sectionIndex) {
+            if (index === activeIndex) {
                 link.classList.add('active');
             }
         });
     }
     
-    // 使用更频繁的更新频率来提高响应性
-    main.addEventListener('scroll', throttle(updateNavbar, 10));
+    // 使用适中的更新频率
+    main.addEventListener('scroll', throttle(updateNavbar, 50));
+    window.addEventListener('scroll', throttle(updateNavbar, 50));
     
-    // 初始化导航状态 - 设置首页为默认选中状态
+    // 初始化导航状态
     updateNavbar();
     
     // 移动端菜单切换
@@ -250,131 +230,6 @@ function initNavigation() {
             }
         });
     }
-    
-    // 优化的触摸滑动支持
-    let touchStartY = 0;
-    let touchStartTime = 0;
-    let lastTouchY = 0;
-    let touchVelocity = 0;
-    let isTouching = false;
-    
-    main.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-        lastTouchY = touchStartY;
-        touchStartTime = Date.now();
-        touchVelocity = 0;
-        isTouching = true;
-        isScrolling = false;
-    }, { passive: true });
-    
-    main.addEventListener('touchmove', function(e) {
-        if (!isTouching) return;
-        
-        const currentTouchY = e.touches[0].clientY;
-        const currentTime = Date.now();
-        const deltaY = currentTouchY - lastTouchY;
-        const deltaTime = currentTime - touchStartTime;
-        
-        // 计算滑动速度
-        if (deltaTime > 0) {
-            touchVelocity = deltaY / deltaTime;
-        }
-        
-        lastTouchY = currentTouchY;
-        isScrolling = true;
-    }, { passive: true });
-    
-    main.addEventListener('touchend', function(e) {
-        if (!isTouching || !isScrolling) {
-            isTouching = false;
-            return;
-        }
-        
-        const endY = e.changedTouches[0].clientY;
-        const totalDeltaY = touchStartY - endY;
-        const totalTime = Date.now() - touchStartTime;
-        
-        isTouching = false;
-        
-        // 检测快速滑动手势或足够的距离
-        const minDistance = window.innerHeight * 0.15; // 降低阈值
-        const minVelocity = 0.5; // 最小速度阈值
-        
-        if ((Math.abs(totalDeltaY) > minDistance || Math.abs(touchVelocity) > minVelocity) && totalTime < 500) {
-            let targetIndex = currentSectionIndex;
-            
-            if (totalDeltaY > 0 && currentSectionIndex < sections.length - 1) {
-                // 向上滑动，切换到下一页
-                targetIndex = currentSectionIndex + 1;
-            } else if (totalDeltaY < 0 && currentSectionIndex > 0) {
-                // 向下滑动，切换到上一页
-                targetIndex = currentSectionIndex - 1;
-            }
-            
-            if (targetIndex !== currentSectionIndex) {
-                scrollToSection(targetIndex);
-            }
-        }
-    }, { passive: true });
-    
-    // 鼠标滚轮优化
-    let wheelTimeout;
-    let wheelDelta = 0;
-    
-    main.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        
-        wheelDelta += e.deltaY;
-        
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-            const threshold = 100; // 滚轮阈值
-            
-            if (Math.abs(wheelDelta) > threshold) {
-                let targetIndex = currentSectionIndex;
-                
-                if (wheelDelta > 0 && currentSectionIndex < sections.length - 1) {
-                    targetIndex = currentSectionIndex + 1;
-                } else if (wheelDelta < 0 && currentSectionIndex > 0) {
-                    targetIndex = currentSectionIndex - 1;
-                }
-                
-                if (targetIndex !== currentSectionIndex) {
-                    scrollToSection(targetIndex);
-                }
-            }
-            
-            wheelDelta = 0;
-        }, 150);
-    }, { passive: false });
-    
-    // 键盘导航支持
-    document.addEventListener('keydown', function(e) {
-        switch(e.key) {
-            case 'ArrowDown':
-            case 'PageDown':
-                e.preventDefault();
-                if (currentSectionIndex < sections.length - 1) {
-                    scrollToSection(currentSectionIndex + 1);
-                }
-                break;
-            case 'ArrowUp':
-            case 'PageUp':
-                e.preventDefault();
-                if (currentSectionIndex > 0) {
-                    scrollToSection(currentSectionIndex - 1);
-                }
-                break;
-            case 'Home':
-                e.preventDefault();
-                scrollToSection(0);
-                break;
-            case 'End':
-                e.preventDefault();
-                scrollToSection(sections.length - 1);
-                break;
-        }
-    });
 }
 
 // 返回顶部按钮
@@ -383,7 +238,7 @@ function initBackToTop() {
     const main = document.querySelector('main');
     
     function toggleBackToTop() {
-        const scrollTop = main.scrollTop;
+        const scrollTop = main.scrollTop || window.pageYOffset;
         if (scrollTop > window.innerHeight * 0.3) {
             backToTopBtn.classList.add('visible');
         } else {
@@ -391,10 +246,11 @@ function initBackToTop() {
         }
     }
     
-    main.addEventListener('scroll', throttle(toggleBackToTop, 16));
+    main.addEventListener('scroll', throttle(toggleBackToTop, 100));
+    window.addEventListener('scroll', throttle(toggleBackToTop, 100));
     
     backToTopBtn.addEventListener('click', function() {
-        main.scrollTo({
+        window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
@@ -407,14 +263,17 @@ function initScrollProgress() {
     const main = document.querySelector('main');
     
     function updateProgress() {
-        const scrollTop = main.scrollTop;
-        const maxScroll = main.scrollHeight - main.clientHeight;
-        const scrollPercent = (scrollTop / maxScroll) * 100;
+        const scrollTop = main.scrollTop || window.pageYOffset;
+        const documentHeight = document.documentElement.scrollHeight;
+        const windowHeight = window.innerHeight;
+        const maxScroll = documentHeight - windowHeight;
+        const scrollPercent = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
         
-        progressBar.style.width = scrollPercent + '%';
+        progressBar.style.width = Math.min(100, Math.max(0, scrollPercent)) + '%';
     }
     
-    main.addEventListener('scroll', throttle(updateProgress, 16));
+    main.addEventListener('scroll', throttle(updateProgress, 50));
+    window.addEventListener('scroll', throttle(updateProgress, 50));
 }
 
 // 滚动位置指示器
@@ -432,9 +291,7 @@ function initScrollIndicator() {
         if (index === 0) dot.classList.add('active');
         
         dot.addEventListener('click', () => {
-            const scrollTop = index * window.innerHeight;
-            main.scrollTo({
-                top: scrollTop,
+            section.scrollIntoView({
                 behavior: 'smooth'
             });
         });
@@ -446,15 +303,21 @@ function initScrollIndicator() {
     
     // 更新指示器状态
     function updateIndicator() {
-        const scrollTop = main.scrollTop;
-        const currentIndex = Math.round(scrollTop / window.innerHeight);
+        let activeIndex = 0;
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2) {
+                activeIndex = index;
+            }
+        });
         
         indicator.querySelectorAll('.position-dot').forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
+            dot.classList.toggle('active', index === activeIndex);
         });
     }
     
-    main.addEventListener('scroll', throttle(updateIndicator, 16));
+    main.addEventListener('scroll', throttle(updateIndicator, 100));
+    window.addEventListener('scroll', throttle(updateIndicator, 100));
 }
 
 // 滚动视觉反馈
@@ -464,66 +327,34 @@ function initScrollVisualFeedback() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     
     function updateVisualFeedback() {
-        const scrollTop = main.scrollTop;
-        const currentIndex = Math.round(scrollTop / window.innerHeight);
+        const scrollTop = main.scrollTop || window.pageYOffset;
+        let activeIndex = 0;
         
         sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
             section.classList.remove('scrolling-past', 'scrolling-active');
             
-            if (index === currentIndex) {
+            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
                 section.classList.add('scrolling-active');
-            } else if (Math.abs(index - currentIndex) === 1) {
+                activeIndex = index;
+            } else if (rect.bottom > 0 && rect.top < window.innerHeight) {
                 section.classList.add('scrolling-past');
             }
         });
         
         // 在第一个页面之外隐藏滚动指示器
         if (scrollIndicator) {
-            scrollIndicator.classList.toggle('hidden', currentIndex > 0);
+            scrollIndicator.classList.toggle('hidden', activeIndex > 0);
         }
     }
     
-    main.addEventListener('scroll', throttle(updateVisualFeedback, 16));
+    main.addEventListener('scroll', throttle(updateVisualFeedback, 50));
+    window.addEventListener('scroll', throttle(updateVisualFeedback, 50));
     
     // 初始状态
     updateVisualFeedback();
 }
 
-// 页面过渡效果
-function initPageTransition() {
-    const transition = document.createElement('div');
-    transition.className = 'page-transition';
-    document.body.appendChild(transition);
-    
-    let isTransitioning = false;
-    
-    // 在滚动开始时显示过渡效果
-    function showTransition() {
-        if (isTransitioning) return;
-        
-        isTransitioning = true;
-        transition.classList.add('active');
-        
-        setTimeout(() => {
-            transition.classList.remove('active');
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 300);
-        }, 150);
-    }
-    
-    // 监听快速滚动
-    const main = document.querySelector('main');
-    let lastScrollTime = 0;
-    
-    main.addEventListener('scroll', () => {
-        const now = Date.now();
-        if (now - lastScrollTime < 100) {
-            showTransition();
-        }
-        lastScrollTime = now;
-    });
-}
 
 // 性能优化：节流函数
 function throttle(func, wait) {
