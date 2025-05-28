@@ -1148,34 +1148,24 @@ main::-webkit-scrollbar {
 [data-aos="fade-right"] {
     opacity: 0;
     transform: translateX(-50px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.8s ease;
 }
 
 [data-aos="fade-left"] {
     opacity: 0;
     transform: translateX(50px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.8s ease;
 }
 
 [data-aos="fade-up"] {
     opacity: 0;
     transform: translateY(50px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.8s ease;
 }
 
 [data-aos].aos-animate {
     opacity: 1;
     transform: translate(0);
-}
-
-/* 防止动画抖动的优化 */
-[data-aos] {
-    will-change: opacity, transform;
-    backface-visibility: hidden;
-    perspective: 1000px;
 }
 
 /* 响应式设计 */

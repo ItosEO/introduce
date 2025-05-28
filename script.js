@@ -122,50 +122,17 @@ function initScrollAnimations() {
         rootMargin: '0px 0px -50px 0px'
     };
     
-    // 动画状态管理
-    const animationStates = new Map();
-    
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
-            const element = entry.target;
-            const isVisible = entry.isIntersecting;
-            const currentState = animationStates.get(element);
-            
-            if (isVisible && currentState !== 'animating') {
-                // 元素进入视口时添加动画类
-                animationStates.set(element, 'animating');
-                
-                // 确保动画重置
-                element.classList.remove('aos-animate');
-                
-                // 使用requestAnimationFrame确保重绘
-                requestAnimationFrame(() => {
-                    element.classList.add('aos-animate');
-                });
-                
-                // 监听动画完成
-                const handleTransitionEnd = () => {
-                    animationStates.set(element, 'completed');
-                    element.removeEventListener('transitionend', handleTransitionEnd);
-                };
-                element.addEventListener('transitionend', handleTransitionEnd);
-                
-            } else if (!isVisible && currentState !== 'reset') {
-                // 元素离开视口时重置状态
-                animationStates.set(element, 'reset');
-                element.classList.remove('aos-animate');
+            if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
             }
         });
     }, observerOptions);
     
     // 观察所有带有data-aos属性的元素
     const animatedElements = document.querySelectorAll('[data-aos]');
-    animatedElements.forEach(el => {
-        // 初始化状态
-        animationStates.set(el, 'reset');
-        el.classList.remove('aos-animate');
-        observer.observe(el);
-    });
+    animatedElements.forEach(el => observer.observe(el));
 }
 
 // 导航功能
