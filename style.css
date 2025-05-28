@@ -647,7 +647,7 @@ main::-webkit-scrollbar {
     right: -2px;
     bottom: -2px;
     background: linear-gradient(135deg, #007aff, #5856d6, #007aff);
-    border-radius: 26px;
+    border-radius: 26px; /* 卡片24px + 扩展2px = 26px */
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1375,6 +1375,10 @@ main::-webkit-scrollbar {
         border-radius: 16px;
     }
     
+    .card-glow {
+        border-radius: 18px; /* 卡片16px + 扩展2px = 18px */
+    }
+    
     .product-icon-large {
         font-size: 3.5rem;
         margin-bottom: 15px;
@@ -1527,6 +1531,10 @@ main::-webkit-scrollbar {
         border-radius: 18px;
     }
     
+    .card-glow {
+        border-radius: 20px; /* 卡片18px + 扩展2px = 20px */
+    }
+    
     .container {
         padding: 0 15px;
     }
@@ -1620,6 +1628,11 @@ main::-webkit-scrollbar {
         max-width: 280px;
         height: 260px;
         margin: 0 auto;
+        border-radius: 16px;
+    }
+    
+    .card-glow {
+        border-radius: 18px; /* 卡片16px + 扩展2px = 18px */
     }
 }
 
@@ -1654,6 +1667,11 @@ main::-webkit-scrollbar {
         max-width: 300px;
         height: 280px;
         padding: 25px 20px;
+        border-radius: 18px;
+    }
+    
+    .card-glow {
+        border-radius: 20px; /* 卡片18px + 扩展2px = 20px */
     }
 }
 
@@ -1734,6 +1752,10 @@ main::-webkit-scrollbar {
         height: 260px;
         padding: 18px 12px;
         border-radius: 14px;
+    }
+    
+    .card-glow {
+        border-radius: 16px; /* 卡片14px + 扩展2px = 16px */
     }
     
     .product-icon-large {
