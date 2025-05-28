@@ -126,6 +126,9 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('aos-animate');
+            } else {
+                // 当元素离开视口时移除动画类，以便下次进入时重新触发动画
+                entry.target.classList.remove('aos-animate');
             }
         });
     }, observerOptions);
