@@ -717,12 +717,12 @@ main::-webkit-scrollbar {
     50% { transform: scaleY(1.2); }
 }
 
-.simple-ui-preview {
+.simple-opt-preview {
     width: 100%;
     text-align: center;
 }
 
-.ui-button {
+.opt-button {
     background: linear-gradient(135deg, #007aff, #5856d6);
     color: white;
     padding: 12px 30px;
@@ -734,7 +734,7 @@ main::-webkit-scrollbar {
     transition: all 0.3s ease;
 }
 
-.ui-progress {
+.opt-progress {
     width: 100%;
     height: 8px;
     background: #f3f4f6;
@@ -743,7 +743,7 @@ main::-webkit-scrollbar {
     margin-bottom: 15px;
 }
 
-.ui-progress-bar {
+.opt-progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #007aff, #5856d6);
     border-radius: 4px;
@@ -756,7 +756,7 @@ main::-webkit-scrollbar {
     100% { width: 80%; }
 }
 
-.ui-status {
+.opt-status {
     color: #10b981;
     font-weight: 600;
     font-size: 0.9rem;
@@ -1470,6 +1470,19 @@ main::-webkit-scrollbar {
         -webkit-user-select: none;
         user-select: none;
         -webkit-touch-callout: none;
+    }
+    
+    /* 隐藏OPT视觉类型中的"一键优化"按钮 */
+    .opt-button {
+        display: none;
+    }
+    
+    /* 调整OPT预览容器的间距，因为隐藏了按钮 */
+    .simple-opt-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
     }
 }
 

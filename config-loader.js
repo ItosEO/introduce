@@ -219,8 +219,8 @@ class PageRenderer {
             case 'chart':
                 visualContent = this.createChartVisual(product);
                 break;
-            case 'ui':
-                visualContent = this.createUIVisual(product);
+            case 'opt':
+                visualContent = this.createOptVisual(product);
                 break;
             case 'advanced':
                 visualContent = this.createAdvancedVisual(product);
@@ -269,14 +269,14 @@ class PageRenderer {
         `;
     }
 
-    createUIVisual(product) {
+    createOptVisual(product) {
         return `
-            <div class="simple-ui-preview">
-                <div class="ui-button active">一键优化</div>
-                <div class="ui-progress">
-                    <div class="ui-progress-bar"></div>
+            <div class="simple-opt-preview">
+                <div class="opt-button active">一键优化</div>
+                <div class="opt-progress">
+                    <div class="opt-progress-bar"></div>
                 </div>
-                <div class="ui-status">优化完成 ✓</div>
+                <div class="opt-status">优化完成 ✓</div>
             </div>
         `;
     }
