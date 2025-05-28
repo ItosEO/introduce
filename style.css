@@ -215,15 +215,6 @@ body {
     overflow: hidden;
 }
 
-/* 移除滚动时的视觉反馈效果 */
-.page-section.scrolling-past {
-    /* 移除遮罩和缩放效果 */
-}
-
-.page-section.scrolling-active {
-    /* 移除遮罩和缩放效果 */
-}
-
 /* 主要内容区域 */
 main {
     scroll-behavior: smooth;

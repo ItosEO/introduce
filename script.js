@@ -323,7 +323,7 @@ function initScrollIndicator() {
     window.addEventListener('scroll', throttle(updateIndicator, 100));
 }
 
-// 滚动视觉反馈
+// 滚动视觉反馈 - 仅保留滚动指示器控制
 function initScrollVisualFeedback() {
     const sections = document.querySelectorAll('.page-section');
     const main = document.querySelector('main');
@@ -335,13 +335,10 @@ function initScrollVisualFeedback() {
         
         sections.forEach((section, index) => {
             const rect = section.getBoundingClientRect();
-            section.classList.remove('scrolling-past', 'scrolling-active');
+            // 移除所有页面级视觉效果，不再添加 scrolling-past 和 scrolling-active 类
             
             if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-                section.classList.add('scrolling-active');
                 activeIndex = index;
-            } else if (rect.bottom > 0 && rect.top < window.innerHeight) {
-                section.classList.add('scrolling-past');
             }
         });
         
