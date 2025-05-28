@@ -323,8 +323,8 @@ class PageRenderer {
         // 渲染统计数据
         const statsContainer = document.querySelector('.contact-stats');
         if (statsContainer && contact.stats) {
-            statsContainer.innerHTML = contact.stats.map(stat => `
-                <div class="stat-card">
+            statsContainer.innerHTML = contact.stats.map((stat, index) => `
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="${400 + (index * 100)}">
                     <div class="stat-number">${stat.number}</div>
                     <div class="stat-label">${stat.label}</div>
                 </div>
