@@ -215,15 +215,13 @@ body {
     overflow: hidden;
 }
 
-/* 滚动时的视觉反馈 */
+/* 移除滚动时的视觉反馈效果 */
 .page-section.scrolling-past {
-    opacity: 0.7;
-    transform: scale(0.95);
+    /* 移除遮罩和缩放效果 */
 }
 
 .page-section.scrolling-active {
-    opacity: 1;
-    transform: scale(1);
+    /* 移除遮罩和缩放效果 */
 }
 
 /* 主要内容区域 */
