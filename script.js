@@ -9,17 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('mobile-device');
     }
     
-    // 移动端性能优化
-    if (isMobile) {
-        // 减少动画和特效
-        document.body.classList.add('reduced-motion');
-        
-        // 禁用粒子效果以提高性能
-        const particlesCanvas = document.getElementById('particles-canvas');
-        if (particlesCanvas) {
-            particlesCanvas.style.display = 'none';
-        }
-    }
+    // 移动端性能优化已禁用 - 保留完整动画体验
+    // if (isMobile) {
+    //     // 减少动画和特效
+    //     document.body.classList.add('reduced-motion');
+    //     
+    //     // 禁用粒子效果以提高性能
+    //     const particlesCanvas = document.getElementById('particles-canvas');
+    //     if (particlesCanvas) {
+    //         particlesCanvas.style.display = 'none';
+    //     }
+    // }
     
     // 移除加载屏幕
     setTimeout(() => {

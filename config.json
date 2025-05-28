@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Itostar 软件集合",
+    "title": "Itostar",
     "logo": {
       "icon": "⚡",
       "text": "ItosEO & 小星星亮晶晶"
@@ -58,7 +58,7 @@
         {
           "icon": "📱",
           "title": "触控提升",
-          "description": "优化触屏响应速度"
+          "description": "优化触控链路"
         }
       ],
       "stats": [

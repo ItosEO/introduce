@@ -1852,14 +1852,14 @@ main::-webkit-scrollbar {
     background: linear-gradient(135deg, #0056d3, #4c3d9e);
 }
 
-/* 移动端性能优化 */
-.mobile-device .gradient-orb {
-    animation: none; /* 禁用动画以提高性能 */
+/* 移动端样式优化 - 保持完整动画体验 */
+/* .mobile-device .gradient-orb {
+    animation: none;
 }
 
 .mobile-device .hero-badge {
     animation: none;
-}
+} */
 
 .reduced-motion * {
     animation-duration: 0.01ms !important;
@@ -1881,8 +1881,8 @@ main::-webkit-scrollbar {
     contain: layout style paint;
 }
 
-/* 减少移动端重绘 */
-.mobile-device .product-card:hover,
+/* 移动端交互样式 - 启用完整hover效果 */
+/* .mobile-device .product-card:hover,
 .mobile-device .feature-item:hover {
     transform: none;
 }
@@ -1890,7 +1890,7 @@ main::-webkit-scrollbar {
 .mobile-device .cta-button:hover,
 .mobile-device .link-button:hover {
     transform: none;
-}
+} */
 
 /* 移动端点击反馈 */
 .mobile-device .cta-button:active,
