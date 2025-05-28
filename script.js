@@ -145,6 +145,11 @@ function initNavigation() {
     const navbar = document.querySelector('.navbar');
     const main = document.querySelector('main');
     
+    // 移动端动态隐藏导航栏的变量
+    let lastScrollTop = 0;
+    let isNavHidden = false;
+    const isMobile = window.innerWidth <= 768;
+    
     // 平滑滑动到指定页面
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -163,6 +168,39 @@ function initNavigation() {
     // 滚动时导航栏样式变化和导航高亮
     function updateNavbar() {
         const scrollTop = main.scrollTop || window.pageYOffset;
+        const currentIsMobile = window.innerWidth <= 768;
+        
+        // 移动端动态隐藏导航栏逻辑
+        if (currentIsMobile) {
+            const scrollDelta = scrollTop - lastScrollTop;
+            const scrollThreshold = 10; // 滚动阈值，避免过于敏感
+            
+            // 向下滚动且滚动距离超过阈值时隐藏导航栏
+            if (scrollDelta > scrollThreshold && scrollTop > 100 && !isNavHidden) {
+                navbar.style.transform = 'translateY(-100%)';
+                navbar.style.transition = 'transform 0.3s ease-in-out';
+                isNavHidden = true;
+            }
+            // 向上滚动且滚动距离超过阈值时显示导航栏
+            else if (scrollDelta < -scrollThreshold && isNavHidden) {
+                navbar.style.transform = 'translateY(0)';
+                navbar.style.transition = 'transform 0.3s ease-in-out';
+                isNavHidden = false;
+            }
+            // 滚动到顶部时始终显示导航栏
+            else if (scrollTop <= 50 && isNavHidden) {
+                navbar.style.transform = 'translateY(0)';
+                navbar.style.transition = 'transform 0.3s ease-in-out';
+                isNavHidden = false;
+            }
+        } else {
+            // 桌面端确保导航栏始终显示
+            navbar.style.transform = 'translateY(0)';
+            isNavHidden = false;
+        }
+        
+        // 更新上次滚动位置
+        lastScrollTop = scrollTop;
         
         // 导航栏背景变化
         if (scrollTop > 100) {
