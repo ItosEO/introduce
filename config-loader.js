@@ -140,7 +140,10 @@ class PageRenderer {
             <div class="container">
                 <div class="${contentClass}">
                     ${this.createProductText(product, textAos)}
-                    ${this.createProductVisual(product, visualAos)}
+                    <div class="product-bottom-section">
+                        ${this.createProductFeatures(product)}
+                        ${this.createProductVisual(product, visualAos)}
+                    </div>
                 </div>
             </div>
         `;
@@ -163,18 +166,6 @@ class PageRenderer {
     createProductText(product, aos) {
         // 根据badge内容确定样式类
         const badgeClass = product.badge === '免费' ? 'free' : 'paid';
-        
-        const featuresHtml = product.features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <span>${feature.icon}</span>
-                </div>
-                <div class="feature-content">
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            </div>
-        `).join('');
 
         const linkHtml = product.link ? `
             <div class="product-link">
@@ -193,10 +184,27 @@ class PageRenderer {
                 <h2 class="product-title">${product.title}</h2>
                 <p class="product-subtitle">${product.subtitle}</p>
                 <p class="product-description">${product.description}</p>
-                <div class="product-features">
-                    ${featuresHtml}
-                </div>
                 ${linkHtml}
+            </div>
+        `;
+    }
+
+    createProductFeatures(product) {
+        const featuresHtml = product.features.map(feature => `
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <span>${feature.icon}</span>
+                </div>
+                <div class="feature-content">
+                    <h4>${feature.title}</h4>
+                    <p>${feature.description}</p>
+                </div>
+            </div>
+        `).join('');
+
+        return `
+            <div class="product-features">
+                ${featuresHtml}
             </div>
         `;
     }
