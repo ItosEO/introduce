@@ -260,25 +260,6 @@ function initBackToTop() {
     });
 }
 
-// 滚动进度条
-function initScrollProgress() {
-    const progressBar = document.querySelector('.progress-bar');
-    const main = document.querySelector('main');
-    
-    function updateProgress() {
-        const scrollTop = main.scrollTop || window.pageYOffset;
-        const documentHeight = document.documentElement.scrollHeight;
-        const windowHeight = window.innerHeight;
-        const maxScroll = documentHeight - windowHeight;
-        const scrollPercent = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
-        
-        progressBar.style.width = Math.min(100, Math.max(0, scrollPercent)) + '%';
-    }
-    
-    main.addEventListener('scroll', throttle(updateProgress, 50));
-    window.addEventListener('scroll', throttle(updateProgress, 50));
-}
-
 // 滚动位置指示器
 function initScrollIndicator() {
     const sections = document.querySelectorAll('.page-section');

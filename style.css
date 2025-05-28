@@ -77,24 +77,6 @@ body {
     z-index: -1;
 }
 
-/* 进度指示器 */
-.progress-indicator {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 1001;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #007aff, #5856d6);
-    width: 0%;
-    transition: width 0.3s ease;
-}
-
 /* 导航栏 */
 .navbar {
     position: fixed;
