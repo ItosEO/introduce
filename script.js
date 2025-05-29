@@ -9,15 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('mobile-device');
     }
     
-    // 移动端性能优化
+    // 移动端动画优化 - 启用轻量级动画
     if (isMobile) {
-        // 减少动画和特效
-        document.body.classList.add('reduced-motion');
+        // 添加移动端优化类，但保留核心动画
+        document.body.classList.add('mobile-optimized');
         
-        // 禁用粒子效果以提高性能
+        // 移动端使用轻量级粒子效果
         const particlesCanvas = document.getElementById('particles-canvas');
-        if (particlesCanvas) {
-            particlesCanvas.style.display = 'none';
+        if (particlesCanvas && window.configLoader?.getAnimations()?.particles?.enabled) {
+            // 减少粒子数量以优化性能
+            const animations = window.configLoader.getAnimations();
+            if (animations.particles) {
+                animations.particles.count = Math.max(20, animations.particles.count * 0.4);
+                animations.particles.maxDistance = Math.max(50, animations.particles.maxDistance * 0.5);
+            }
         }
     }
     

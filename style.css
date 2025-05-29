@@ -647,7 +647,7 @@ main::-webkit-scrollbar {
     right: -2px;
     bottom: -2px;
     background: linear-gradient(135deg, #007aff, #5856d6, #007aff);
-    border-radius: 26px;
+    border-radius: 26px; /* 默认桌面版圆角，比卡片多2px */
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1361,6 +1361,11 @@ main::-webkit-scrollbar {
         border-radius: 16px;
     }
     
+    /* 移动端卡片光效圆角匹配 */
+    .product-card .card-glow {
+        border-radius: 18px; /* 比卡片圆角多2px */
+    }
+    
     .product-icon-large {
         font-size: 4rem;
         margin-bottom: 15px;
@@ -1511,6 +1516,11 @@ main::-webkit-scrollbar {
         height: 320px;
         padding: 28px 18px;
         border-radius: 18px;
+    }
+    
+    /* 超小屏幕卡片光效圆角匹配 */
+    .product-card .card-glow {
+        border-radius: 20px; /* 比卡片圆角多2px */
     }
     
     .container {
@@ -1694,6 +1704,11 @@ main::-webkit-scrollbar {
         height: 280px;
         padding: 20px 15px;
         border-radius: 16px;
+    }
+    
+    /* 移动端双栏布局卡片光效圆角匹配 */
+    .product-card .card-glow {
+        border-radius: 18px; /* 比卡片圆角多2px */
     }
     
     .product-icon-large {
