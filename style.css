@@ -1275,33 +1275,8 @@ main::-webkit-scrollbar {
         height: auto;
     }
     
-    .product-content {
-        gap: 30px;
-        grid-template-columns: 1fr 0.8fr;
-        text-align: left;
-        align-items: flex-start;
-    }
-    
-    .product-content.reverse {
-        direction: ltr;
-    }
-    
-    .product-text {
-        max-width: 100%;
-        order: 1;
-    }
-    
-    .product-visual {
-        display: flex;
-        order: 2;
-        height: auto;
-        justify-content: center;
-        align-items: flex-start;
-        padding-top: 20px;
-    }
-    
     /* 只显示前三个features */
-    .product-features .feature-item:nth-child(n+4) {
+    .mobile-layout .product-features .feature-item:nth-child(n+4) {
         display: none;
     }
     
@@ -1353,22 +1328,9 @@ main::-webkit-scrollbar {
         line-height: 1.4;
     }
     
-    .product-card {
-        width: 100%;
-        max-width: 240px;
-        height: 320px;
-        padding: 25px 20px;
-        border-radius: 16px;
-    }
-    
     /* 移动端卡片光效圆角匹配 */
-    .product-card .card-glow {
-        border-radius: 18px; /* 比卡片圆角多2px */
-    }
-    
-    .product-icon-large {
-        font-size: 4rem;
-        margin-bottom: 15px;
+    .mobile-layout .product-card .card-glow {
+        border-radius: 20px; /* 比卡片圆角多2px */
     }
     
     .container {
@@ -1507,14 +1469,14 @@ main::-webkit-scrollbar {
     }
     
     .product-icon-large {
-        font-size: 4rem;
+        font-size: 3rem;
     }
     
     .product-card {
         width: 100%;
         max-width: 300px;
-        height: 320px;
-        padding: 28px 18px;
+        height: auto;
+        padding: 15px;
         border-radius: 18px;
     }
     
@@ -1578,32 +1540,23 @@ main::-webkit-scrollbar {
         gap: 16px;
     }
     
-    /* 超小屏幕时回到单栏布局 */
-    .product-content {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
-    }
-    
-    .product-visual {
-        order: 1;
-        justify-content: center;
-        padding-top: 0;
-    }
-    
-    .product-text {
-        order: 2;
+    /* 超小屏幕时调整样式 */
+    .mobile-layout {
+        gap: 20px;
     }
     
     /* 超小屏幕显示所有features */
-    .product-features .feature-item:nth-child(n+4) {
+    .mobile-layout .product-features .feature-item:nth-child(n+4) {
         display: flex;
     }
     
-    .product-card {
-        max-width: 280px;
-        height: 260px;
-        margin: 0 auto;
+    .mobile-layout .product-card {
+        max-width: 270px;
+        padding: 12px;
+    }
+    
+    .mobile-layout .product-visual-mobile {
+        margin: 15px auto;
     }
 }
 
@@ -1636,8 +1589,18 @@ main::-webkit-scrollbar {
     
     .product-card {
         max-width: 300px;
-        height: 280px;
-        padding: 25px 20px;
+        height: auto;
+        padding: 15px;
+    }
+    
+    /* 确保横屏模式下布局一致 */
+    .product-text {
+        order: 1;
+    }
+    
+    .product-visual {
+        order: 2;
+        margin-top: 15px;
     }
 }
 
@@ -1671,49 +1634,9 @@ main::-webkit-scrollbar {
         left: 100%;
     }
     
-    /* 移动端双栏布局：三个features + 产品卡片 */
-    .product-content {
-        gap: 30px;
-        grid-template-columns: 1fr 0.8fr;
-        text-align: left;
-        align-items: flex-start;
-    }
-    
-    .product-text {
-        max-width: 100%;
-        order: 1;
-    }
-    
-    .product-visual {
-        display: flex;
-        order: 2;
-        height: auto;
-        justify-content: center;
-        align-items: flex-start;
-        padding-top: 20px;
-    }
-    
     /* 只显示前三个features */
     .product-features .feature-item:nth-child(n+4) {
         display: none;
-    }
-    
-    /* 调整产品卡片大小以适应双栏布局 */
-    .product-card {
-        max-width: 240px;
-        height: 280px;
-        padding: 20px 15px;
-        border-radius: 16px;
-    }
-    
-    /* 移动端双栏布局卡片光效圆角匹配 */
-    .product-card .card-glow {
-        border-radius: 18px; /* 比卡片圆角多2px */
-    }
-    
-    .product-icon-large {
-        font-size: 3.5rem;
-        margin-bottom: 15px;
     }
     
     .card-stats {
@@ -1873,4 +1796,64 @@ main::-webkit-scrollbar {
 .mobile-device .product-card:active {
     transform: scale(0.98);
     transition: transform 0.1s ease;
+}
+
+/* 桌面端和移动端布局显示控制 */
+.desktop-layout {
+    display: grid;
+}
+
+.mobile-layout {
+    display: none;
+}
+
+/* 移动端布局样式 */
+.product-text-mobile {
+    width: 100%;
+    text-align: center;
+}
+
+.product-visual-mobile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .desktop-layout {
+        display: none;
+    }
+    
+    .mobile-layout {
+        display: block;
+    }
+    
+    /* 移动端布局的特性列表样式 */
+    .mobile-layout .product-features {
+        margin-top: 15px;
+    }
+
+    .mobile-layout .product-visual-mobile .product-card {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        padding: 15px;
+        border-radius: 18px;
+        margin: 0 auto;
+    }
+
+    .mobile-layout .product-icon-large {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    @media (max-width: 480px) {
+        .mobile-layout .feature-item {
+            padding: 15px 12px;
+            gap: 12px;
+        }
+    }
 }

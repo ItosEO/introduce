@@ -135,17 +135,88 @@ class PageRenderer {
         const textAos = product.layout === 'reverse' ? 'fade-left' : 'fade-right';
         const visualAos = product.layout === 'reverse' ? 'fade-right' : 'fade-left';
 
+        // 为移动端创建特殊布局，桌面端保持原样
         section.innerHTML = `
             ${this.createSectionBackground()}
             <div class="container">
-                <div class="${contentClass}">
+                <!-- 桌面端布局 -->
+                <div class="desktop-layout ${contentClass}">
                     ${this.createProductText(product, textAos)}
                     ${this.createProductVisual(product, visualAos)}
+                </div>
+                <!-- 移动端布局 -->
+                <div class="mobile-layout ${contentClass}">
+                    ${this.createMobileProductContent(product, textAos, visualAos)}
                 </div>
             </div>
         `;
 
         return section;
+    }
+    
+    createMobileProductContent(product, textAos, visualAos) {
+        // 根据badge内容确定样式类
+        const badgeClass = product.badge === '免费' ? 'free' : 'paid';
+        
+        // 获取可视化内容
+        let visualContent = '';
+        switch (product.visualType) {
+            case 'stats': visualContent = this.createStatsVisual(product); break;
+            case 'chart': visualContent = this.createChartVisual(product); break;
+            case 'ui': visualContent = this.createUIVisual(product); break;
+            case 'advanced': visualContent = this.createAdvancedVisual(product); break;
+            case 'professional': visualContent = this.createProfessionalVisual(product); break;
+            default: visualContent = this.createDefaultVisual(product);
+        }
+        
+        // 创建特性列表
+        const featuresHtml = product.features.map(feature => `
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <span>${feature.icon}</span>
+                </div>
+                <div class="feature-content">
+                    <h4>${feature.title}</h4>
+                    <p>${feature.description}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // 创建链接
+        const linkHtml = product.link ? `
+            <div class="product-link">
+                <a href="${product.link.url}" target="_blank" class="link-button">
+                    <span>${product.link.text}</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        ` : '';
+
+        // 返回移动端的内容结构：标题->描述->卡片->特性
+        return `
+            <div class="product-text-mobile" data-aos="${textAos}">
+                <div class="product-badge ${badgeClass}">${product.badge}</div>
+                <h2 class="product-title">${product.title}</h2>
+                <p class="product-subtitle">${product.subtitle}</p>
+                <p class="product-description">${product.description}</p>
+                
+                <!-- 卡片放在描述和特性之间 -->
+                <div class="product-visual-mobile" data-aos="${visualAos}">
+                    <div class="product-card">
+                        <div class="card-glow"></div>
+                        <div class="product-icon-large">${product.icon}</div>
+                        ${visualContent}
+                    </div>
+                </div>
+                
+                <div class="product-features">
+                    ${featuresHtml}
+                </div>
+                ${linkHtml}
+            </div>
+        `;
     }
 
     createSectionBackground() {
