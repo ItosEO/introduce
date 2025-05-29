@@ -1,164 +1,86 @@
-# 动态网站生成模板
+# ItosEO 网站配置系统
 
-> 基于 JSON 配置的现代化网站生成系统
+> **Itostar 软件集合** - 基于 JSON 配置的动态网站生成系统
 
-## 项目介绍
+## 项目概述
 
-这是一个轻量级的动态网站生成模板，专门为产品展示网站设计。通过简单的 JSON 配置文件，您可以快速创建一个包含产品展示、导航管理、联系信息等完整功能的专业网站。
+ItosEO 是一个基于 JSON 配置文件的现代化网站系统，专为 Itostar 软件集合设计。该系统通过简单的配置文件即可动态生成包含产品展示、导航管理、联系信息等完整功能的专业网站。
 
 ### 核心特性
 
-- 🎯 **JSON 配置驱动** - 通过配置文件轻松管理网站内容，无需修改代码
-- 🎨 **多样化展示** - 支持多种产品展示类型和专业徽章效果
+- 🎯 **JSON 配置驱动** - 通过配置文件轻松管理网站内容
+- 🎨 **专业视觉设计** - 支持多种产品展示类型和专业徽章
 - ⚡ **响应式动画** - 流畅的滚动动画和交互效果
 - 🎛️ **主题系统** - 可自定义的色彩和渐变主题
-- 📱 **移动优先** - 完全响应式设计，支持移动端优化
-- 🚀 **性能优化** - 纯原生技术，轻量级快速加载
-- 🔧 **易于部署** - 静态文件，支持各种部署平台
+- 📱 **移动适配** - 完全响应式设计
+- 🚀 **性能优化** - 轻量级代码，快速加载
 
-### 适用场景
+## 当前产品阵容
 
-- 产品展示网站
-- 软件工具集合展示
-- 公司产品介绍页面
-- 个人项目展示
-- SaaS产品着陆页
+- **vivo温控引擎** - 智能温控管理，付费产品
+- **系统优化Pro** - 专业级优化工具，付费产品
+- **系统优化APP** - 一键优化工具，免费产品
+- **X计划** - 深度定制优化，免费产品
 
 ## 项目结构
 
 ```
 introduce/
-├── config.json          # 网站配置文件（核心）
+├── config.json          # 主配置文件
 ├── config-loader.js     # 配置加载器
-├── index.html          # 主页面模板
+├── index.html          # 主页面
 ├── script.js           # 交互逻辑
 ├── style.css           # 样式文件
-└── README.md           # 使用文档
+└── README.md           # 项目文档
 ```
-
-## 快速开始
-
-### 1. 下载模板
-
-```bash
-# 克隆或下载项目文件
-git clone [repository-url]
-cd introduce
-```
-
-### 2. 配置网站内容
-
-编辑 `config.json` 文件，自定义您的网站内容：
-
-```json
-{
-  "site": {
-    "title": "您的网站标题",
-    "logo": {
-      "icon": "🌟",
-      "text": "您的品牌名称"
-    },
-    "description": "网站描述"
-  },
-  "products": [
-    {
-      "id": "product-1",
-      "title": "产品名称",
-      "description": "产品描述",
-      "visualType": "stats"
-    }
-  ]
-}
-```
-
-### 3. 本地预览
-
-使用任意 HTTP 服务器运行：
-
-```bash
-# 使用 Python
-python -m http.server 8000
-
-# 使用 Node.js
-npx serve .
-
-# 使用 Live Server (VS Code扩展)
-```
-
-浏览器访问 `http://localhost:8000` 预览效果。
-
-### 4. 部署上线
-
-将所有文件上传到您的服务器或托管平台即可。
 
 ## 配置文件详解
 
-`config.json` 是整个网站的核心配置文件，通过修改此文件即可自定义网站的所有内容。
-
-### 基本配置结构
-
-```json
-{
-  "site": { /* 网站基本信息 */ },
-  "navigation": [ /* 导航菜单 */ ],
-  "hero": { /* 首页横幅 */ },
-  "products": [ /* 产品列表 */ ],
-  "contact": { /* 联系信息 */ },
-  "animations": { /* 动画设置 */ },
-  "theme": { /* 主题配置 */ }
-}
-```
-
 ### 1. 网站基本信息 (`site`)
-
-设置网站的基本信息：
 
 ```json
 {
   "site": {
-    "title": "您的网站标题",
+    "title": "Itostar 软件集合",
     "logo": {
-      "icon": "🌟",
-      "text": "您的品牌名称"
+      "icon": "⚡",
+      "text": "ItosEO & 小星星亮晶晶"
     },
-    "description": "网站描述文字"
+    "description": "专业的系统优化解决方案，让您的设备发挥最佳性能"
   }
 }
 ```
 
-### 2. 导航菜单 (`navigation`)
-
-配置顶部导航菜单：
+### 2. 导航配置 (`navigation`)
 
 ```json
 {
   "navigation": [
     { "text": "首页", "href": "#home" },
-    { "text": "产品一", "href": "#product-1" },
-    { "text": "产品二", "href": "#product-2" },
-    { "text": "联系我们", "href": "#contact" }
+    { "text": "温控引擎", "href": "#vivo-thermal" },
+    { "text": "系统优化Pro", "href": "#system-pro" },
+    { "text": "系统优化APP", "href": "#system-app" },
+    { "text": "X计划", "href": "#x-plan" }
   ]
 }
 ```
 
 ### 3. 首页横幅 (`hero`)
 
-设置首页的主要展示区域：
-
 ```json
 {
   "hero": {
-    "badge": "✨ 新产品发布",
+    "badge": "✨ 新一代优化技术",
     "title": {
-      "line1": "创新",
-      "line2": "改变世界",
+      "line1": "重新定义",
+      "line2": "移动体验",
       "gradientLine": 2
     },
-    "subtitle": "产品的详细介绍文字",
+    "subtitle": "专业的系统优化解决方案，让您的设备发挥最佳性能",
     "buttons": [
       {
-        "text": "立即体验",
-        "href": "#products",
+        "text": "探索产品",
+        "href": "#vivo-thermal",
         "type": "primary"
       },
       {
@@ -171,107 +93,92 @@ npx serve .
 }
 ```
 
-### 4. 产品展示 (`products`)
+### 4. 产品配置 (`products`)
 
-这是网站的核心部分，展示您的产品或服务：
+产品是网站的核心内容，支持多种展示类型和专业徽章效果：
 
 ```json
 {
-  "id": "product-1",
+  "id": "vivo-thermal",
   "badge": "付费",
-  "title": "产品名称",
-  "subtitle": "产品副标题",
-  "description": "产品的详细描述文字...",
-  "icon": "🎯",
+  "title": "vivo温控引擎",
+  "subtitle": "智能温控管理，性能与体验的完美平衡",
+  "description": "通过调整系统温控参数，优化设备性能与温度管理...",
+  "icon": "🌡️",
   "layout": "normal",
   "features": [
     {
-      "icon": "⚡",
-      "title": "特性标题",
-      "description": "特性描述"
+      "icon": "🎯",
+      "title": "精准调参",
+      "description": "优化游戏&日用体验"
     }
   ],
   "stats": [
     {
-      "number": "99%",
-      "label": "满意度"
+      "number": "40%+",
+      "label": "性能提升"
     }
   ],
   "link": {
     "text": "了解更多",
-    "url": "https://example.com"
+    "url": "https://app.itostar.com.cn/"
   },
   "visualType": "stats"
 }
 ```
 
-#### 重要配置项说明：
+#### 支持的 visualType 类型：
+- **`stats`** - 数据统计展示
+- **`chart`** - 图表可视化
+- **`ui`** - 界面预览效果
+- **`advanced`** - 高级功能展示
+- **`professional`** - 专业版徽章（带金色徽章和闪光动画）
 
-**visualType 展示类型**：
-- `stats` - 数据统计展示
-- `chart` - 图表
-- `opt` - 优化界面预览（移动端按钮自动隐藏）
-- `advanced`
-- `professional` - 专业版徽章（金色PRO徽章动画）
+#### 产品徽章样式：
+- **付费产品** - 显示金色 "PRO" 徽章，带旋转和闪光动画
+- **免费产品** - 显示标准徽章样式
 
-**产品徽章 (badge)**：
-- `付费` - 显示金色样式
-- `免费` - 显示绿色样式
-
-**布局样式 (layout)**：
-- `normal` - 标准布局
-- `reverse` - 反向布局
-
-### 5. 联系信息 (`contact`)
-
-设置页面底部的联系信息和统计数据：
+### 5. 联系信息和备案 (`contact`)
 
 ```json
 {
   "contact": {
     "title": {
-      "line1": "联系",
-      "line2": "我们",
+      "line1": "让我们一起",
+      "line2": "优化未来",
       "gradientLine": 1
     },
-    "description": "公司或产品的简介文字",
+    "description": "专注于移动设备系统优化，致力于为用户提供最佳的设备性能体验。",
     "stats": [
       {
-        "number": "1000+",
-        "label": "用户"
+        "number": "4W+",
+        "label": "用户选择"
+      },
+      {
+        "number": "300+",
+        "label": "设备适配"
       },
       {
         "number": "99%",
         "label": "满意度"
       }
     ],
-    "copyright": "&copy; 2025 您的公司名. 保留所有权利。"
-  }
-}
-```
-
-#### 备案信息配置（可选）
-
-如果需要显示备案信息，可以添加：
-
-```json
-{
-  "filing": {
-    "icp": {
-      "number": "ICP备案号",
-      "url": "https://beian.miit.gov.cn/"
-    },
-    "police": {
-      "number": "公安备案号",
-      "url": "公安备案链接"
+    "copyright": "&copy; 2025 ItosEO. 保留所有权利。",
+    "filing": {
+      "icp": {
+        "number": "蜀ICP备2025118281号-1",
+        "url": "https://beian.miit.gov.cn/"
+      },
+      "police": {
+        "number": "川公网安备51010602002603号",
+        "url": "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51010602002603"
+      }
     }
   }
 }
 ```
 
-### 6. 动画配置 (`animations`)
-
-自定义网站的动画效果：
+### 6. 动画系统 (`animations`)
 
 ```json
 {
@@ -288,16 +195,7 @@ npx serve .
 }
 ```
 
-**配置说明**：
-- `particles.enabled` - 是否启用粒子背景
-- `particles.count` - 粒子数量
-- `particles.color` - 粒子颜色（RGB格式）
-- `loadingDuration` - 加载动画时长（毫秒）
-- `scrollAnimations` - 是否启用滚动动画
-
-### 7. 主题配置 (`theme`)
-
-自定义网站的色彩主题：
+### 7. 主题系统 (`theme`)
 
 ```json
 {
@@ -313,133 +211,124 @@ npx serve .
 }
 ```
 
-## 部署指南
+## 系统架构
 
-本模板是纯静态网站，支持多种部署方式：
+### ConfigLoader 类
+`config-loader.js` 提供了完整的配置管理功能：
 
-### 1. 传统服务器部署
-
-将所有文件上传到您的服务器根目录：
-
-```bash
-# 上传文件到服务器
-scp -r ./* user@your-server.com:/var/www/html/
-
-# 设置文件权限
-chmod -R 755 /var/www/html/
+```javascript
+class ConfigLoader {
+    // 加载配置文件
+    async loadConfig()
+    
+    // 获取各部分配置
+    getSiteInfo()      // 网站信息
+    getNavigation()    // 导航数据
+    getHero()          // 首页横幅
+    getProducts()      // 产品列表
+    getContact()       // 联系信息
+    getAnimations()    // 动画配置
+    getTheme()         // 主题设置
+}
 ```
 
-### 2. GitHub Pages 部署
+### 核心功能模块
 
-1. 将项目推送到 GitHub 仓库
-2. 在仓库设置中启用 GitHub Pages
-3. 选择主分支作为源
-4. 访问 `https://yourusername.github.io/repository-name`
+1. **动态内容渲染** - 基于配置文件动态生成页面内容
+2. **响应式导航** - 自动高亮当前页面导航项
+3. **专业徽章系统** - 付费产品显示 PRO 徽章动画
+4. **滚动动画** - 平滑的页面滚动和内容出现动画
+5. **主题定制** - 可配置的色彩方案和渐变效果
 
-### 3. Netlify 部署
+## 快速开始
 
-1. 连接 GitHub 仓库到 Netlify
-2. 构建设置：
-   - Build command: 留空
-   - Publish directory: `./`
-3. 自动部署完成
+1. **克隆项目**：
+   ```bash
+   git clone [repository-url]
+   cd introduce
+   ```
 
-### 4. Vercel 部署
+2. **配置网站内容**：
+   编辑 `config.json` 文件，修改网站信息、产品列表等
 
-```bash
-# 安装 Vercel CLI
-npm i -g vercel
+3. **启动网站**：
+   使用任意 HTTP 服务器运行，例如：
+   ```bash
+   # 使用 Python
+   python -m http.server 8000
+   
+   # 使用 Node.js
+   npx serve .
+   
+   # 使用 VS Code Live Server 扩展
+   ```
 
-# 部署
-vercel
-```
+4. **访问网站**：
+   在浏览器中打开 `http://localhost:8000`
 
-### 5. CDN 部署
+## 自定义指南
 
-支持任何支持静态文件的CDN服务：
-- 阿里云OSS
-- 腾讯云COS
-- 七牛云
-- 又拍云
+### 添加新产品
 
-## 自定义开发
+1. 在 `config.json` 的 `products` 数组中添加新对象
+2. 在 `navigation` 数组中添加对应导航项
+3. 选择合适的 `visualType` 展示效果
 
-### 添加新的产品展示类型
+### 修改产品徽章
 
-1. 在 `config-loader.js` 中添加新的视觉类型处理
-2. 在 `style.css` 中添加对应样式
-3. 在 `config.json` 中使用新的 `visualType`
+- **付费产品**：设置 `"badge": "付费"` 会自动显示 PRO 徽章
+- **免费产品**：设置 `"badge": "免费"` 显示标准徽章
 
-### 修改页面样式
+### 自定义主题
 
-主要样式文件为 `style.css`，包含：
-- 响应式布局
-- 动画效果
-- 主题颜色变量
-- 移动端优化
+修改 `theme` 配置中的颜色和渐变：
+- `primaryColor`: 主要颜色
+- `secondaryColor`: 次要颜色  
+- `gradients`: 各种渐变效果
 
-### 扩展功能
+### 调整动画效果
 
-- 修改 `script.js` 添加新的交互功能
-- 编辑 `index.html` 调整页面结构
-- 更新 `config-loader.js` 扩展配置处理逻辑
+在 `animations` 配置中：
+- 禁用粒子效果：`"particles.enabled": false`
+- 调整粒子数量：修改 `particles.count`
+- 关闭滚动动画：`"scrollAnimations": false`
 
-## 技术规格
+## 技术特性
 
-### 浏览器兼容性
+- ✅ **纯原生技术** - HTML5 + CSS3 + JavaScript ES6+
+- ✅ **无框架依赖** - 轻量级，快速加载
+- ✅ **移动优先** - 响应式设计，完美适配各种设备
+- ✅ **SEO 友好** - 语义化 HTML 结构
+- ✅ **可维护性** - 模块化代码结构，易于扩展
+
+## 浏览器支持
+
 - Chrome 60+
 - Firefox 55+
 - Safari 12+
 - Edge 79+
 
-### 技术栈
-- **前端**: HTML5 + CSS3 + JavaScript ES6+
-- **无框架依赖**: 纯原生实现
-- **响应式**: 移动优先设计
-- **SEO**: 语义化HTML结构
+## 更新日志
 
-### 性能特性
-- 📱 移动端优化（动态导航、触摸优化）
-- ⚡ 懒加载和资源优化
-- 🎯 防抖节流处理
-- 💫 硬件加速动画
-
-## 常见问题
-
-**Q: 如何修改网站标题？**
-A: 编辑 `config.json` 中的 `site.title` 字段。
-
-**Q: 如何添加新产品？**
-A: 在 `config.json` 的 `products` 数组中添加新对象，并在 `navigation` 中添加对应导航项。
-
-**Q: 如何禁用动画效果？**
-A: 在 `config.json` 中设置 `animations.scrollAnimations: false` 和 `animations.particles.enabled: false`。
-
-**Q: 移动端按钮为什么隐藏？**
-A: `opt` 类型的产品在移动端会自动隐藏操作按钮，这是为了优化移动体验。
-
-## 版本历史
-
-### v2.1.0 (2025-05-28)
-- 🔄 重构优化界面类型命名
-- 📱 增强移动端体验
-- 📝 完善配置文档
-
-### v2.0.0 (2025-01-27)  
-- 🎉 JSON 配置驱动重构
-- ✨ 专业徽章系统
-- 🎨 多样化产品展示
-- 📱 响应式设计完善
+### v2.0.0 (2025-01-27)
+- 🎉 重构配置系统，支持完整的 JSON 驱动
+- ✨ 新增专业徽章系统（PRO 徽章动画）
+- 🎨 优化视觉效果，支持多种产品展示类型
+- 📱 完善响应式设计
+- 🔧 新增备案信息展示
+- ⚡ 性能优化和代码重构
 
 ### v1.0.0 (2024)
 - 🎯 初始版本发布
+- 📝 基础配置文件支持
+- 🎨 基本主题系统
 
-## 开源协议
+## 许可证
 
-MIT License - 详见 LICENSE 文件
+Copyright &copy; 2025 ItosEO. 保留所有权利。
 
 ---
 
-💡 **提示**: 修改配置后刷新浏览器即可看到效果，无需重新部署。
+> 📧 如有问题或建议，请通过项目页面联系我们
 
-📧 如有问题或建议，欢迎提交 Issue 或 Pull Request。
+*最后更新时间：2025年5月25日*

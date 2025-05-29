@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Itostar",
+    "title": "Itostar 软件集合",
     "logo": {
       "icon": "⚡",
       "text": "ItosEO & 小星星亮晶晶"
@@ -58,13 +58,13 @@
         {
           "icon": "📱",
           "title": "触控提升",
-          "description": "优化触控链路"
+          "description": "优化触屏响应速度"
         }
       ],
       "stats": [
         {
           "number": "40%+",
-          "label": "游戏综合提升"
+          "label": "游戏体验综合提升"
         }
       ],
       "link": {
@@ -134,7 +134,7 @@
         "text": "前往下载",
         "url": "https://down.itostar.com.cn/itos%E5%BC%80%E5%8F%91%E7%9A%84app/%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96APP"
       },
-      "visualType": "opt"
+      "visualType": "ui"
     },
     {
       "id": "x-plan",

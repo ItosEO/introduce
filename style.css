@@ -647,7 +647,7 @@ main::-webkit-scrollbar {
     right: -2px;
     bottom: -2px;
     background: linear-gradient(135deg, #007aff, #5856d6, #007aff);
-    border-radius: 26px; /* 卡片24px + 扩展2px = 26px */
+    border-radius: 26px;
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -717,12 +717,12 @@ main::-webkit-scrollbar {
     50% { transform: scaleY(1.2); }
 }
 
-.simple-opt-preview {
+.simple-ui-preview {
     width: 100%;
     text-align: center;
 }
 
-.opt-button {
+.ui-button {
     background: linear-gradient(135deg, #007aff, #5856d6);
     color: white;
     padding: 12px 30px;
@@ -734,7 +734,7 @@ main::-webkit-scrollbar {
     transition: all 0.3s ease;
 }
 
-.opt-progress {
+.ui-progress {
     width: 100%;
     height: 8px;
     background: #f3f4f6;
@@ -743,7 +743,7 @@ main::-webkit-scrollbar {
     margin-bottom: 15px;
 }
 
-.opt-progress-bar {
+.ui-progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #007aff, #5856d6);
     border-radius: 4px;
@@ -756,7 +756,7 @@ main::-webkit-scrollbar {
     100% { width: 80%; }
 }
 
-.opt-status {
+.ui-status {
     color: #10b981;
     font-weight: 600;
     font-size: 0.9rem;
@@ -1276,11 +1276,10 @@ main::-webkit-scrollbar {
     }
     
     .product-content {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+        gap: 30px;
+        grid-template-columns: 1fr 0.8fr;
         text-align: left;
-        align-items: stretch;
+        align-items: flex-start;
     }
     
     .product-content.reverse {
@@ -1290,20 +1289,6 @@ main::-webkit-scrollbar {
     .product-text {
         max-width: 100%;
         order: 1;
-        margin-bottom: 15px;
-    }
-    
-    /* 创建features和卡片的并排容器 */
-    .product-bottom-section {
-        display: grid;
-        grid-template-columns: 1fr 0.75fr;
-        gap: 25px;
-        align-items: flex-start;
-        order: 2;
-    }
-    
-    .product-features {
-        order: 1;
     }
     
     .product-visual {
@@ -1312,6 +1297,7 @@ main::-webkit-scrollbar {
         height: auto;
         justify-content: center;
         align-items: flex-start;
+        padding-top: 20px;
     }
     
     /* 只显示前三个features */
@@ -1369,18 +1355,14 @@ main::-webkit-scrollbar {
     
     .product-card {
         width: 100%;
-        max-width: 260px;
-        height: 300px;
-        padding: 22px 18px;
+        max-width: 240px;
+        height: 320px;
+        padding: 25px 20px;
         border-radius: 16px;
     }
     
-    .card-glow {
-        border-radius: 18px; /* 卡片16px + 扩展2px = 18px */
-    }
-    
     .product-icon-large {
-        font-size: 3.5rem;
+        font-size: 4rem;
         margin-bottom: 15px;
     }
     
@@ -1471,19 +1453,6 @@ main::-webkit-scrollbar {
         user-select: none;
         -webkit-touch-callout: none;
     }
-    
-    /* 隐藏OPT视觉类型中的"一键优化"按钮 */
-    .opt-button {
-        display: none;
-    }
-    
-    /* 调整OPT预览容器的间距，因为隐藏了按钮 */
-    .simple-opt-preview {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1544,10 +1513,6 @@ main::-webkit-scrollbar {
         border-radius: 18px;
     }
     
-    .card-glow {
-        border-radius: 20px; /* 卡片18px + 扩展2px = 20px */
-    }
-    
     .container {
         padding: 0 15px;
     }
@@ -1603,33 +1568,21 @@ main::-webkit-scrollbar {
         gap: 16px;
     }
     
-    /* 超小屏幕时回到垂直堆叠布局 */
+    /* 超小屏幕时回到单栏布局 */
     .product-content {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+        grid-template-columns: 1fr;
+        gap: 30px;
         text-align: center;
-    }
-    
-    .product-bottom-section {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        align-items: center;
-    }
-    
-    .product-features {
-        order: 2;
     }
     
     .product-visual {
         order: 1;
         justify-content: center;
+        padding-top: 0;
     }
     
     .product-text {
-        order: 1;
-        margin-bottom: 10px;
+        order: 2;
     }
     
     /* 超小屏幕显示所有features */
@@ -1641,11 +1594,6 @@ main::-webkit-scrollbar {
         max-width: 280px;
         height: 260px;
         margin: 0 auto;
-        border-radius: 16px;
-    }
-    
-    .card-glow {
-        border-radius: 18px; /* 卡片16px + 扩展2px = 18px */
     }
 }
 
@@ -1680,11 +1628,6 @@ main::-webkit-scrollbar {
         max-width: 300px;
         height: 280px;
         padding: 25px 20px;
-        border-radius: 18px;
-    }
-    
-    .card-glow {
-        border-radius: 20px; /* 卡片18px + 扩展2px = 20px */
     }
 }
 
@@ -1718,31 +1661,16 @@ main::-webkit-scrollbar {
         left: 100%;
     }
     
-    /* 移动端三栏布局：文本在上，features和卡片并排 */
+    /* 移动端双栏布局：三个features + 产品卡片 */
     .product-content {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+        gap: 30px;
+        grid-template-columns: 1fr 0.8fr;
         text-align: left;
-        align-items: stretch;
+        align-items: flex-start;
     }
     
     .product-text {
-        order: 1;
         max-width: 100%;
-        margin-bottom: 20px;
-    }
-    
-    /* 创建features和卡片的并排容器 */
-    .product-bottom-section {
-        display: grid;
-        grid-template-columns: 1fr 0.7fr;
-        gap: 20px;
-        align-items: flex-start;
-        order: 2;
-    }
-    
-    .product-features {
         order: 1;
     }
     
@@ -1752,6 +1680,7 @@ main::-webkit-scrollbar {
         height: auto;
         justify-content: center;
         align-items: flex-start;
+        padding-top: 20px;
     }
     
     /* 只显示前三个features */
@@ -1759,33 +1688,29 @@ main::-webkit-scrollbar {
         display: none;
     }
     
-    /* 调整产品卡片大小以适应并排布局 */
+    /* 调整产品卡片大小以适应双栏布局 */
     .product-card {
-        max-width: 220px;
-        height: 260px;
-        padding: 18px 12px;
-        border-radius: 14px;
-    }
-    
-    .card-glow {
-        border-radius: 16px; /* 卡片14px + 扩展2px = 16px */
+        max-width: 240px;
+        height: 280px;
+        padding: 20px 15px;
+        border-radius: 16px;
     }
     
     .product-icon-large {
-        font-size: 3rem;
-        margin-bottom: 12px;
+        font-size: 3.5rem;
+        margin-bottom: 15px;
     }
     
     .card-stats {
-        gap: 12px;
+        gap: 15px;
     }
     
     .stat-item .stat-number {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .stat-item .stat-label {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
     
     /* 改善移动端卡片显示 */
@@ -1887,14 +1812,14 @@ main::-webkit-scrollbar {
     background: linear-gradient(135deg, #0056d3, #4c3d9e);
 }
 
-/* 移动端样式优化 - 保持完整动画体验 */
-/* .mobile-device .gradient-orb {
-    animation: none;
+/* 移动端性能优化 */
+.mobile-device .gradient-orb {
+    animation: none; /* 禁用动画以提高性能 */
 }
 
 .mobile-device .hero-badge {
     animation: none;
-} */
+}
 
 .reduced-motion * {
     animation-duration: 0.01ms !important;
@@ -1916,8 +1841,8 @@ main::-webkit-scrollbar {
     contain: layout style paint;
 }
 
-/* 移动端交互样式 - 启用完整hover效果 */
-/* .mobile-device .product-card:hover,
+/* 减少移动端重绘 */
+.mobile-device .product-card:hover,
 .mobile-device .feature-item:hover {
     transform: none;
 }
@@ -1925,7 +1850,7 @@ main::-webkit-scrollbar {
 .mobile-device .cta-button:hover,
 .mobile-device .link-button:hover {
     transform: none;
-} */
+}
 
 /* 移动端点击反馈 */
 .mobile-device .cta-button:active,

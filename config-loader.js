@@ -140,10 +140,7 @@ class PageRenderer {
             <div class="container">
                 <div class="${contentClass}">
                     ${this.createProductText(product, textAos)}
-                    <div class="product-bottom-section">
-                        ${this.createProductFeatures(product)}
-                        ${this.createProductVisual(product, visualAos)}
-                    </div>
+                    ${this.createProductVisual(product, visualAos)}
                 </div>
             </div>
         `;
@@ -166,6 +163,18 @@ class PageRenderer {
     createProductText(product, aos) {
         // 根据badge内容确定样式类
         const badgeClass = product.badge === '免费' ? 'free' : 'paid';
+        
+        const featuresHtml = product.features.map(feature => `
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <span>${feature.icon}</span>
+                </div>
+                <div class="feature-content">
+                    <h4>${feature.title}</h4>
+                    <p>${feature.description}</p>
+                </div>
+            </div>
+        `).join('');
 
         const linkHtml = product.link ? `
             <div class="product-link">
@@ -184,27 +193,10 @@ class PageRenderer {
                 <h2 class="product-title">${product.title}</h2>
                 <p class="product-subtitle">${product.subtitle}</p>
                 <p class="product-description">${product.description}</p>
+                <div class="product-features">
+                    ${featuresHtml}
+                </div>
                 ${linkHtml}
-            </div>
-        `;
-    }
-
-    createProductFeatures(product) {
-        const featuresHtml = product.features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <span>${feature.icon}</span>
-                </div>
-                <div class="feature-content">
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            </div>
-        `).join('');
-
-        return `
-            <div class="product-features">
-                ${featuresHtml}
             </div>
         `;
     }
@@ -219,8 +211,8 @@ class PageRenderer {
             case 'chart':
                 visualContent = this.createChartVisual(product);
                 break;
-            case 'opt':
-                visualContent = this.createOptVisual(product);
+            case 'ui':
+                visualContent = this.createUIVisual(product);
                 break;
             case 'advanced':
                 visualContent = this.createAdvancedVisual(product);
@@ -269,14 +261,14 @@ class PageRenderer {
         `;
     }
 
-    createOptVisual(product) {
+    createUIVisual(product) {
         return `
-            <div class="simple-opt-preview">
-                <div class="opt-button active">一键优化</div>
-                <div class="opt-progress">
-                    <div class="opt-progress-bar"></div>
+            <div class="simple-ui-preview">
+                <div class="ui-button active">一键优化</div>
+                <div class="ui-progress">
+                    <div class="ui-progress-bar"></div>
                 </div>
-                <div class="opt-status">优化完成 ✓</div>
+                <div class="ui-status">优化完成 ✓</div>
             </div>
         `;
     }
