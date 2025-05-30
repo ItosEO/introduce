@@ -1373,6 +1373,10 @@ main::-webkit-scrollbar {
         padding: 0 20px;
     }
     
+    .contact-content {
+        padding-top: 60px;
+    }
+    
     .contact-stats {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -1546,6 +1550,10 @@ main::-webkit-scrollbar {
     
     .container {
         padding: 0 15px;
+    }
+    
+    .contact-content {
+        padding-top: 40px;
     }
     
     .section-title {
