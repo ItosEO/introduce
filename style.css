@@ -1928,7 +1928,7 @@ main::-webkit-scrollbar {
     
     /* 移动端布局的特性列表样式 */
     .mobile-layout .product-features {
-        margin-top: 15px;
+        margin-top: 0;
     }
 
     .mobile-layout .product-visual-mobile .product-card {
