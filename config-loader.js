@@ -192,17 +192,17 @@ class PageRenderer {
         ` : '';
         // 新的移动端结构：文字描述在上，features和卡片水平排列在下，按钮在最下
         return `
-            <div class="product-text-mobile" data-aos="${textAos}">
+            <div class="product-text-mobile" data-aos="fade-up">
                 <div class="product-badge ${badgeClass}">${product.badge}</div>
                 <h2 class="product-title">${product.title}</h2>
                 <p class="product-subtitle">${product.subtitle}</p>
                 <p class="product-description">${product.description}</p>
             </div>
-            <div class="mobile-flex-row" data-aos="${visualAos}">
-                <div class="product-features mobile-features-col">
+            <div class="mobile-flex-row">
+                <div class="product-features mobile-features-col" data-aos="fade-right" data-aos-delay="200">
                     ${featuresHtml}
                 </div>
-                <div class="product-visual-mobile">
+                <div class="product-visual-mobile" data-aos="fade-left" data-aos-delay="200">
                     <div class="product-card">
                         <div class="card-glow"></div>
                         <div class="product-icon-large">${product.icon}</div>
@@ -210,7 +210,9 @@ class PageRenderer {
                     </div>
                 </div>
             </div>
-            ${linkHtml}
+            <div data-aos="fade-up" data-aos-delay="400">
+                ${linkHtml}
+            </div>
         `;
     }
 
@@ -330,7 +332,6 @@ class PageRenderer {
     createUIVisual(product) {
         return `
             <div class="simple-ui-preview">
-                <div class="ui-button active">一键优化</div>
                 <div class="ui-progress">
                     <div class="ui-progress-bar"></div>
                 </div>

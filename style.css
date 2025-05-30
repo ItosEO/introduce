@@ -1391,6 +1391,22 @@ main::-webkit-scrollbar {
         transition: transform 0.1s ease;
     }
     
+    /* 移动端链接按钮全宽 */
+    .mobile-product-link {
+        margin-top: 20px;
+        padding: 0 20px;
+    }
+    
+    .mobile-product-link .link-button {
+        width: 100%;
+        max-width: none;
+        justify-content: center;
+        min-height: 48px;
+        border-radius: 24px;
+        font-size: 16px;
+        padding: 16px 24px;
+    }
+    
     .back-to-top {
         bottom: 20px;
         right: 20px;
@@ -1553,6 +1569,17 @@ main::-webkit-scrollbar {
     .mobile-layout .product-card {
         max-width: 270px;
         padding: 12px;
+    }
+    
+    /* 超小屏幕链接按钮优化 */
+    .mobile-product-link {
+        padding: 0 15px;
+    }
+    
+    .mobile-product-link .link-button {
+        font-size: 15px;
+        padding: 15px 20px;
+        border-radius: 22px;
     }
 }
 
@@ -1838,6 +1865,13 @@ main::-webkit-scrollbar {
     margin-top: 20px;
     display: flex;
     justify-content: center;
+}
+
+.mobile-product-link .link-button {
+    width: 100%;
+    max-width: none;
+    justify-content: center;
+    min-height: 48px;
 }
 
 @media (max-width: 768px) {
