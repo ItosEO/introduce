@@ -599,12 +599,36 @@ main::-webkit-scrollbar {
     border-radius: 16px;
     border: 1px solid rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
 .feature-item:hover {
     background: rgba(255, 255, 255, 0.8);
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.1s ease;
+}
+
+.feature-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.feature-item:hover::before {
+    left: 100%;
 }
 
 .feature-icon {
@@ -1684,28 +1708,12 @@ main::-webkit-scrollbar {
     .feature-item {
         cursor: pointer;
         -webkit-tap-highlight-color: rgba(0, 122, 255, 0.1);
-        position: relative;
-        overflow: hidden;
     }
     
     .feature-item:active {
-        transform: scale(0.98);
-        transition: transform 0.1s ease;
-    }
-    
-    .feature-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transition: left 0.6s ease;
-    }
-    
-    .feature-item:hover::before {
-        left: 100%;
+        transform: scale(0.96);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
     
     /* 只显示前三个features */
@@ -1867,9 +1875,39 @@ main::-webkit-scrollbar {
 /* 移动端点击反馈 */
 .mobile-device .cta-button:active,
 .mobile-device .link-button:active,
-.mobile-device .product-card:active {
+.mobile-device .product-card:active,
+.mobile-device .feature-item:active {
     transform: scale(0.98);
     transition: transform 0.1s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 添加波纹效果 */
+.mobile-device .feature-item:active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 122, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ripple 0.5s ease-out;
+    z-index: 1;
+}
+
+@keyframes ripple {
+    0% {
+        width: 5px;
+        height: 5px;
+        opacity: 1;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
 }
 
 /* 桌面端和移动端布局显示控制 */
