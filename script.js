@@ -165,9 +165,29 @@ function initNavigation() {
         });
     });
 
+    // 移动端导航栏滚动隐藏功能
+    let lastScrollTop = 0;
+    const isMobile = window.innerWidth <= 768;
+    
     // 滚动时导航栏样式变化和导航高亮
     function updateNavbar() {
         const scrollTop = main.scrollTop || window.pageYOffset;
+        
+        // 移动端滚动隐藏逻辑
+        if (isMobile) {
+            const scrollDifference = scrollTop - lastScrollTop;
+            
+            // 向下滚动且滚动距离超过50px时隐藏导航栏
+            if (scrollDifference > 0 && scrollTop > 100) {
+                navbar.classList.add('navbar-hidden');
+            } 
+            // 向上滚动时显示导航栏
+            else if (scrollDifference < 0) {
+                navbar.classList.remove('navbar-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        }
         
         // 导航栏背景变化
         if (scrollTop > 100) {
