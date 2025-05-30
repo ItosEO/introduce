@@ -157,7 +157,6 @@ class PageRenderer {
     createMobileProductContent(product, textAos, visualAos) {
         // 根据badge内容确定样式类
         const badgeClass = product.badge === '免费' ? 'free' : 'paid';
-        
         // 获取可视化内容
         let visualContent = '';
         switch (product.visualType) {
@@ -168,7 +167,6 @@ class PageRenderer {
             case 'professional': visualContent = this.createProfessionalVisual(product); break;
             default: visualContent = this.createDefaultVisual(product);
         }
-        
         // 创建特性列表
         const featuresHtml = product.features.map(feature => `
             <div class="feature-item">
@@ -181,10 +179,9 @@ class PageRenderer {
                 </div>
             </div>
         `).join('');
-
         // 创建链接
         const linkHtml = product.link ? `
-            <div class="product-link">
+            <div class="product-link mobile-product-link">
                 <a href="${product.link.url}" target="_blank" class="link-button">
                     <span>${product.link.text}</span>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -193,29 +190,27 @@ class PageRenderer {
                 </a>
             </div>
         ` : '';
-
-        // 返回移动端的内容结构：标题->描述->卡片->特性
+        // 新的移动端结构：文字描述在上，features和卡片水平排列在下，按钮在最下
         return `
             <div class="product-text-mobile" data-aos="${textAos}">
                 <div class="product-badge ${badgeClass}">${product.badge}</div>
                 <h2 class="product-title">${product.title}</h2>
                 <p class="product-subtitle">${product.subtitle}</p>
                 <p class="product-description">${product.description}</p>
-                
-                <!-- 卡片放在描述和特性之间 -->
-                <div class="product-visual-mobile" data-aos="${visualAos}">
+            </div>
+            <div class="mobile-flex-row" data-aos="${visualAos}">
+                <div class="product-features mobile-features-col">
+                    ${featuresHtml}
+                </div>
+                <div class="product-visual-mobile">
                     <div class="product-card">
                         <div class="card-glow"></div>
                         <div class="product-icon-large">${product.icon}</div>
                         ${visualContent}
                     </div>
                 </div>
-                
-                <div class="product-features">
-                    ${featuresHtml}
-                </div>
-                ${linkHtml}
             </div>
+            ${linkHtml}
         `;
     }
 

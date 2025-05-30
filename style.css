@@ -1554,10 +1554,6 @@ main::-webkit-scrollbar {
         max-width: 270px;
         padding: 12px;
     }
-    
-    .mobile-layout .product-visual-mobile {
-        margin: 15px auto;
-    }
 }
 
 /* 横屏模式优化 */
@@ -1813,12 +1809,35 @@ main::-webkit-scrollbar {
     text-align: center;
 }
 
+.mobile-flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.mobile-features-col {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 200px;
+}
+
 .product-visual-mobile {
-    width: 100%;
+    flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 20px 0;
+    align-items: stretch;
+    min-height: 200px;
+}
+
+.mobile-product-link {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
@@ -1837,11 +1856,16 @@ main::-webkit-scrollbar {
 
     .mobile-layout .product-visual-mobile .product-card {
         width: 100%;
-        max-width: 300px;
-        height: auto;
+        max-width: 140px;
+        height: 100%;
+        min-height: 200px;
         padding: 15px;
         border-radius: 18px;
-        margin: 0 auto;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .mobile-layout .product-icon-large {
