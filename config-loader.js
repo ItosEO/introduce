@@ -63,7 +63,7 @@ class PageRenderer {
         const logoElement = document.querySelector('.nav-logo');
         if (logoElement && site.logo) {
             logoElement.innerHTML = `
-                <span class="logo-icon">${site.logo.icon}</span>
+                <span class="logo-icon"><img src="${site.logo.icon}" alt="logo" /></span>
                 ${site.logo.text}
             `;
         }
@@ -83,7 +83,16 @@ class PageRenderer {
         // 渲染徽章
         const badgeElement = document.querySelector('.badge-text');
         if (badgeElement && hero.badge) {
-            badgeElement.textContent = hero.badge;
+            if (typeof hero.badge === 'string') {
+                // 兼容旧格式
+                badgeElement.textContent = hero.badge;
+            } else {
+                // 新格式：图标+文本
+                badgeElement.innerHTML = `
+                    <img src="${hero.badge.icon}" alt="badge icon" class="badge-icon" />
+                    ${hero.badge.text}
+                `;
+            }
         }
 
         // 渲染标题
@@ -171,7 +180,7 @@ class PageRenderer {
         const featuresHtml = product.features.map(feature => `
             <div class="feature-item">
                 <div class="feature-icon">
-                    <span>${feature.icon}</span>
+                    <img src="${feature.icon}" alt="${feature.title}" />
                 </div>
                 <div class="feature-content">
                     <h4>${feature.title}</h4>
@@ -205,7 +214,7 @@ class PageRenderer {
                 <div class="product-visual-mobile" data-aos="fade-left" data-aos-delay="200">
                     <div class="product-card">
                         <div class="card-glow"></div>
-                        <div class="product-icon-large">${product.icon}</div>
+                        <div class="product-icon-large"><img src="${product.icon}" alt="${product.title}" /></div>
                         ${visualContent}
                     </div>
                 </div>
@@ -235,7 +244,7 @@ class PageRenderer {
         const featuresHtml = product.features.map(feature => `
             <div class="feature-item">
                 <div class="feature-icon">
-                    <span>${feature.icon}</span>
+                    <img src="${feature.icon}" alt="${feature.title}" />
                 </div>
                 <div class="feature-content">
                     <h4>${feature.title}</h4>
@@ -296,7 +305,7 @@ class PageRenderer {
             <div class="product-visual" data-aos="${aos}">
                 <div class="product-card">
                     <div class="card-glow"></div>
-                    <div class="product-icon-large">${product.icon}</div>
+                    <div class="product-icon-large"><img src="${product.icon}" alt="${product.title}" /></div>
                     ${visualContent}
                 </div>
             </div>

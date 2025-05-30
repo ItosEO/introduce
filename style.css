@@ -114,11 +114,17 @@ body {
 }
 
 .logo-icon {
-    font-size: 28px;
-    background: linear-gradient(135deg, #007aff, #5856d6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .nav-menu {
@@ -288,6 +294,15 @@ main::-webkit-scrollbar {
 .badge-text {
     font-size: 14px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .hero-title {
@@ -600,8 +615,14 @@ main::-webkit-scrollbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
     flex-shrink: 0;
+    padding: 10px;
+}
+
+.feature-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .feature-content h4 {
@@ -663,9 +684,19 @@ main::-webkit-scrollbar {
 }
 
 .product-icon-large {
-    font-size: 8rem;
-    margin-bottom: 30px;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: iconFloat 3s ease-in-out infinite;
+}
+
+.product-icon-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 @keyframes iconFloat {
@@ -1317,9 +1348,9 @@ main::-webkit-scrollbar {
     .feature-icon {
         width: 45px;
         height: 45px;
-        font-size: 1.3rem;
         border-radius: 10px;
         flex-shrink: 0;
+        padding: 8px;
     }
     
     .feature-content h4 {
@@ -1472,6 +1503,11 @@ main::-webkit-scrollbar {
         font-size: 12px;
     }
     
+    .badge-icon {
+        width: 14px;
+        height: 14px;
+    }
+    
     .product-title {
         font-size: 1.8rem;
     }
@@ -1490,7 +1526,9 @@ main::-webkit-scrollbar {
     }
     
     .product-icon-large {
-        font-size: 3rem;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
     }
     
     .product-card {
@@ -1544,7 +1582,7 @@ main::-webkit-scrollbar {
     .feature-icon {
         width: 40px;
         height: 40px;
-        font-size: 1.1rem;
+        padding: 6px;
     }
     
     .feature-content h4 {
@@ -1908,9 +1946,10 @@ main::-webkit-scrollbar {
     }
 
     .mobile-layout .product-icon-large {
-        font-size: 3rem;
+        width: 60px;
+        height: 60px;
         margin-bottom: 10px;
-        display: inline-block;
+        display: flex;
     }
 
     @media (max-width: 480px) {
