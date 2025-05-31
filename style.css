@@ -616,20 +616,26 @@ main::-webkit-scrollbar {
     transition: all 0.1s ease;
 }
 
-.feature-item::before {
+/* Feature item glow effect (similar to card glow) */
+.feature-item::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.6s ease;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #007aff, #5856d6, #007aff);
+    border-radius: 18px; /* 比feature-item圆角多2px */
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
-.feature-item:hover::before {
-    left: 100%;
+.feature-item:active::after {
+    opacity: 0.3;
 }
+
+
 
 .feature-icon {
     width: 50px;
@@ -886,39 +892,6 @@ main::-webkit-scrollbar {
     cursor: default;
     user-select: none;
     overflow: hidden;
-}
-
-.pro-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.4), 
-        rgba(255, 255, 255, 0.6), 
-        rgba(255, 255, 255, 0.4), 
-        transparent
-    );
-    animation: badgeShine 3s infinite;
-    transform: skewX(-20deg);
-}
-
-@keyframes badgeShine {
-    0% { 
-        left: -100%; 
-        opacity: 0;
-    }
-    50% { 
-        left: 0%; 
-        opacity: 1;
-    }
-    100% { 
-        left: 100%; 
-        opacity: 0;
-    }
 }
 
 .pro-text {
@@ -1709,11 +1682,15 @@ main::-webkit-scrollbar {
         cursor: pointer;
         -webkit-tap-highlight-color: rgba(0, 122, 255, 0.1);
     }
-    
-    .feature-item:active {
+      .feature-item:active {
         transform: scale(0.96);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    
+    /* 移动端feature glow效果圆角匹配 */
+    .feature-item::after {
+        border-radius: 14px; /* 比移动端feature-item圆角多2px */
     }
     
     /* 只显示前三个features */
@@ -1880,34 +1857,6 @@ main::-webkit-scrollbar {
     transform: scale(0.98);
     transition: transform 0.1s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-/* 添加波纹效果 */
-.mobile-device .feature-item:active::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    background: rgba(0, 122, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: ripple 0.5s ease-out;
-    z-index: 1;
-}
-
-@keyframes ripple {
-    0% {
-        width: 5px;
-        height: 5px;
-        opacity: 1;
-    }
-    100% {
-        width: 200px;
-        height: 200px;
-        opacity: 0;
-    }
 }
 
 /* 桌面端和移动端布局显示控制 */
