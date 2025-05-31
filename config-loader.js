@@ -175,19 +175,21 @@ class PageRenderer {
             case 'advanced': visualContent = this.createAdvancedVisual(product); break;
             case 'professional': visualContent = this.createProfessionalVisual(product); break;
             default: visualContent = this.createDefaultVisual(product);
-        }
-        // 创建特性列表
-        const featuresHtml = product.features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <img src="${feature.icon}" alt="${feature.title}" />
+        }        // 创建特性列表 - 每个feature独立动画
+        const featuresHtml = product.features.map((feature, index) => {
+            const delay = 200 + (index * 150); // 每个feature延迟递增
+            return `
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="${delay}">
+                    <div class="feature-icon">
+                        <img src="${feature.icon}" alt="${feature.title}" />
+                    </div>
+                    <div class="feature-content">
+                        <h4>${feature.title}</h4>
+                        <p>${feature.description}</p>
+                    </div>
                 </div>
-                <div class="feature-content">
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
         // 创建链接
         const linkHtml = product.link ? `
             <div class="product-link mobile-product-link">
@@ -206,9 +208,8 @@ class PageRenderer {
                 <h2 class="product-title">${product.title}</h2>
                 <p class="product-subtitle">${product.subtitle}</p>
                 <p class="product-description">${product.description}</p>
-            </div>
-            <div class="mobile-flex-row">
-                <div class="product-features mobile-features-col" data-aos="fade-right" data-aos-delay="200">
+            </div>            <div class="mobile-flex-row">
+                <div class="product-features mobile-features-col">
                     ${featuresHtml}
                 </div>
                 <div class="product-visual-mobile" data-aos="fade-left" data-aos-delay="200">
@@ -235,23 +236,25 @@ class PageRenderer {
                 </div>
             </div>
         `;
-    }
-
-    createProductText(product, aos) {
+    }    createProductText(product, aos) {
         // 根据badge内容确定样式类
         const badgeClass = product.badge === '免费' ? 'free' : 'paid';
         
-        const featuresHtml = product.features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <img src="${feature.icon}" alt="${feature.title}" />
+        // 桌面端features也使用瀑布流动画
+        const featuresHtml = product.features.map((feature, index) => {
+            const delay = 300 + (index * 150); // 桌面端延迟稍长，错开整体动画
+            return `
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="${delay}">
+                    <div class="feature-icon">
+                        <img src="${feature.icon}" alt="${feature.title}" />
+                    </div>
+                    <div class="feature-content">
+                        <h4>${feature.title}</h4>
+                        <p>${feature.description}</p>
+                    </div>
                 </div>
-                <div class="feature-content">
-                    <h4>${feature.title}</h4>
-                    <p>${feature.description}</p>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         const linkHtml = product.link ? `
             <div class="product-link">
